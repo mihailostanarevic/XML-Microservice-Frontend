@@ -1,0 +1,37 @@
+<div class="wallpaper" style="background-image: url('https://scontent.fbeg1-1.fna.fbcdn.net/v/t1.15752-9/104657209_3169854803058301_5356134765279315659_n.jpg?_nc_cat=101&_nc_sid=b96e70&_nc_eui2=AeF5iT0q41BahGqWafIUJOpPisP49BAQOAKKw_j0EBA4At3bt9pR0H4J_Pt035AuQyY-890NLaG0gpjcb7SzmRMu&_nc_ohc=9OpPfIp3gCAAX92fvMs&_nc_ht=scontent.fbeg1-1.fna&oh=cc7b9bfaf2c3734edc2b175f5d3f53a7&oe=5F138A7D');">
+  <div>
+    <header style="color: white; font-size: x-large; font-style: oblique; margin-left: 10%;">
+      <br/>
+      <b>
+        Official site of Rent A Car
+      </b>
+      <br/>
+      <br/>
+    </header>
+    <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input formControlName="username" placeholder="Username" />
+          </nz-input-group></nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="password" nz-input formControlName="password" placeholder="Password" />
+          </nz-input-group></nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button nzType="primary" class="login-form-button" [disabled]="!validateForm.valid">Log In</button>
+          <br/>
+          <br/>
+        <label style="margin-left: 4%; color: white;">
+          or if you don't have an account
+        </label>
+          <b><a (click)="onRegistration()">register!</a></b>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+</div>

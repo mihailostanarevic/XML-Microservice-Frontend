@@ -1,0 +1,24 @@
+<div> 
+  <nz-layout>
+    <nz-header>
+      <div class="logo">
+        <label style="color: white; font-style: oblique; font-size: large;">
+            Welcome!
+        </label>
+      </div>
+      <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
+        <li nz-menu-item (click)="logout()" style="margin-left: 85%;">Log out</li>
+      </ul>
+    </nz-header>
+    <nz-layout>
+      <nz-sider nzWidth="200px" nzTheme="light">
+        <ul nz-menu nzTheme="dark" nzMode="inline" class="sider-menu">
+        </ul>
+      </nz-sider>
+      <nz-layout class="inner-layout">
+        <nz-content>
+        </nz-content>
+      </nz-layout>
+    </nz-layout>
+ </nz-layout>
+</div>

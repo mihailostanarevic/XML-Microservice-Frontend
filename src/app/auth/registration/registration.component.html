@@ -1,0 +1,91 @@
+<div class="wallpaper" style="background-image: url('https://scontent.fbeg1-1.fna.fbcdn.net/v/t1.15752-9/105029460_556938208312685_1855331142165052332_n.jpg?_nc_cat=105&_nc_sid=b96e70&_nc_eui2=AeHcPzHTQqjEIMvwmSb9H5IqXi8pUWXlOKFeLylRZeU4odyfk0aPvMJmpangkm1S-YAakCLq_wX1RDSziWwRRoTU&_nc_ohc=9LTflCTmtN4AX-geJ_n&_nc_ht=scontent.fbeg1-1.fna&oh=a7ba580935e20d653870bd4a5764acaf&oe=5F12B460');">
+  <div>
+      <header style="color: white; font-size: x-large; font-style: oblique; margin-left: 10%;">
+        <br/>
+        <br/>
+        <b>
+          Please fill the registration form:
+        </b>
+        <br/>
+        <br/>
+      </header>
+      <form nz-form [formGroup]="validateForm" class="registrationForm">
+        <nz-form-item>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="firstName" formControlName="firstName" placeholder="Name"/>
+          </nz-form-control>
+        </nz-form-item>
+        
+        <nz-form-item>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="lastName" formControlName="lastName" placeholder="Last name" />
+            </nz-form-control>
+        </nz-form-item>
+      
+        <nz-form-item>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="address" formControlName="address" placeholder="Address" />
+            </nz-form-control>
+        </nz-form-item>
+      
+        <nz-form-item>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="city" formControlName="city" placeholder="City" />
+            </nz-form-control>
+        </nz-form-item>
+      
+        <nz-form-item>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="country" formControlName="country" placeholder="Country" />
+            </nz-form-control>
+        </nz-form-item>
+        
+        <nz-form-item>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="ssn" formControlName="ssn" placeholder="Social security number" />
+            </nz-form-control>
+        </nz-form-item>
+        
+        <nz-form-item>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input formControlName="username" id="username" placeholder="E-mail" />
+            </nz-form-control>
+        </nz-form-item>
+      
+        <nz-form-item>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input
+            style="width: 350px;"
+              nz-input
+              type="password"
+              id="password"
+              placeholder="Password"
+              formControlName="password"
+              (ngModelChange)="updateConfirmValidator()"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      
+        <nz-form-item>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input type="password" formControlName="rePassword" id="rePassword" placeholder="Password" style="width: 350px;" />
+              <!-- <ng-container *ngIf="validateForm.get('rePassword')?.hasError('confirm')">
+                The passwords you have entered do not match!
+              </ng-container> -->
+          </nz-form-control>
+        </nz-form-item>
+      
+        <nz-form-item nz-row style="margin-bottom:8px;">
+          <nz-form-control>
+            <button (click)="submitForm()" nz-button nzType="primary" [disabled]="!validateForm.valid || !isValid">Register</button>
+            <br/>
+            <br/>
+            <label style="color: white;">
+            or go back to 
+            </label>
+            <b><a (click)="backToLogin()">log in!</a></b>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+  </div>
+</div>
