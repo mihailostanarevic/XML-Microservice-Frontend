@@ -48,7 +48,7 @@
           </a>
           <nz-dropdown-menu #menu="nzDropdownMenu">
             <ul nz-menu *ngFor="let location of data.fullLocations">
-              <li nz-menu-item (click)="pickUpAddress($event, location.id)">
+              <li nz-menu-item (click)="pickUpAddress($event, location)">
                 {{ location.street }} {{ location.number }}, {{ location.city }}
               </li>
             </ul>

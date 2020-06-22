@@ -92,6 +92,7 @@ export class AgentRentComponent implements OnInit, OnDestroy {
 
   // send request
   handleOk(): void {
+    console.log(this.addressID + " " +this.pickedDateFrom + " " +this.pickedTimeTo + " " +this.pickedDateTo + " " +this.pickedTimeFrom + " " +this.inputUsername);
     if(!this.addressID || !this.pickedDateFrom || !this.pickedTimeTo || !this.pickedDateTo ||
         !this.pickedTimeFrom || !this.inputUsername) {
       this.message.info('All input fields must be filled.');
@@ -109,9 +110,11 @@ export class AgentRentComponent implements OnInit, OnDestroy {
         "bundle" : false
       }).subscribe(response => {
         this.message.info('Request is successfully created!');
-      }, error => {
-        this.message.warning('Request is not well created.');
-      });
+      }
+      // , error => {
+      //   this.message.warning('Request is not well created.');
+      // }
+      );
     }
   }
 
@@ -145,8 +148,9 @@ export class AgentRentComponent implements OnInit, OnDestroy {
     }
   }
 
-  pickUpAddress(event, id): void {
-    this.addressID = id;
+  pickUpAddress(event, location): void {
+    this.addressID = "Serbia," + location.city + "," + location.street + "," + location.number;
+    console.log(this.addressID);
     this.message.info("You pick address: " + event.srcElement.innerText);
   }
 
