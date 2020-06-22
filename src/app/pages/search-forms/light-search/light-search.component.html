@@ -1,44 +1,52 @@
 <div class="inputWrapper2" *ngIf="!showResults">
-    <form nz-form [formGroup]="validateForm" class="login-form" >
-        <nz-form-control>
-            <nz-input-group>
-                <input style="width: 300px;" formControlName="city" nz-input placeholder="Location of pickup" [(ngModel)]="city" />
-            </nz-input-group>
-        </nz-form-control>
+    <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"
+        (nzOnCancel)="handleCancel()">
+        <ng-template #modalTitle>
+            Search rentals
+        </ng-template>
+
+        <ng-template #modalContent>
+            <form nz-form [formGroup]="validateForm" class="login-form">
+                <nz-form-control>
+                    <nz-input-group>
+                        <input style="width: 300px;" formControlName="city" nz-input placeholder="Location of pickup"
+                            [(ngModel)]="city" />
+                    </nz-input-group>
+                </nz-form-control>
 
 
-    <br/>
-    <br/>
-    <nz-form-control>
-        <nz-input-group>
-            <nz-form-item>
-                <nz-range-picker
-                    [nzShowTime]="{ nzFormat: 'hh:mm' }"
-                    [nzDisabledDate]="disabledDate"
-                    nzFormat="hh:mm dd-MM-yyyy"
-                    [nzPlaceHolder]="['Start Time', 'End Time']"
-                    ngModel
-                    (ngModelChange)="onChange($event)"
-                    style="width: 300px;"
-                    formControlName="dates"
-                ></nz-range-picker>
-            </nz-form-item>
-        </nz-input-group>
-    </nz-form-control>
-    </form>
+                <br />
+                <br />
 
-    <button nz-button (click)="submitSearch()" nzType="primary" [disabled]="!validateForm.valid">Search</button>
-  </div>
+                <nz-form-control>
+                    <nz-input-group>
+                        <nz-form-item>
+                            <nz-range-picker [nzShowTime]="{ nzFormat: 'hh:mm' }" [nzDisabledDate]="disabledDate"
+                                nzFormat="hh:mm dd-MM-yyyy" [nzPlaceHolder]="['Start Time', 'End Time']" ngModel
+                                (ngModelChange)="onChange($event)" style="width: 300px;" formControlName="dates">
+                            </nz-range-picker>
+                        </nz-form-item>
+                    </nz-input-group>
+                </nz-form-control>
+            </form>
+        </ng-template>
 
-  <div *ngIf="showResults">
-    <div>
-        <button nz-button nzType="primary" (click)="backToSearch()" style="margin-left: 18px;margin-bottom: 30px"><i nz-icon
-            nzType="arrow-left" nzTheme="outline"></i>Go back to search</button>
-    </div>
+        <ng-template #modalFooter>
+            <span>Modal Footer: </span>
+            <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+            <button nz-button (click)="submitSearch()" nzType="primary" [disabled]="!validateForm.valid">Search</button>
+        </ng-template>
+    </nz-modal>
+</div>
+
+<div *ngIf="showResults">
+    <button nz-button nzType="primary" (click)="backToSearch()" style="margin-left: 18px;margin-bottom: 30px"><i nz-icon
+        nzType="search" nzTheme="outline"></i>Search again</button>
+    
     <div class="row">
       <div class="col col-lg-4 col-md-6 col-sm-8" style="padding-top: 15px;" *ngFor="let result of searchResults">
         <app-ad-card [result]="result" [page]="page"></app-ad-card>
       </div>
     </div>
 
-  </div>
+</div>

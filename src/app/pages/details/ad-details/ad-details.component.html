@@ -1,0 +1,106 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-7 col-md-7 col-sm-12" style="width: 100%">
+      <h2><strong>Ad details</strong></h2>
+      <form nz-form class="form" style="width: 100%; margin: 0 auto;">
+        <div class="row">
+          <nz-descriptions nzBordered nzLayout="vertical" style="background-color: #aeccee;">
+            <nz-descriptions-item nzTitle="Car model">{{currentAd.car.carBrandName}} {{currentAd.car.carModelName}},
+              {{currentAd.car.carClassName}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Car class description">{{currentAd.car.carClassDesc}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Date of ad creation">{{currentAd.ad.formattedDate}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Fuel type">{{currentAd.car.fuelTypeType}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Tank capacity">{{currentAd.car.fuelTypeTankCapacity}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Gas?">{{currentAd.car.fuelTypeGas ? 'YES' : 'NO'}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Gearshift type">{{currentAd.car.gearshiftTypeType}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="No. of gears">{{currentAd.car.getGearshiftTypeNumberOfGears}}
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="No. of child seats">{{currentAd.ad.seats}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Limited distance?">
+              {{currentAd.ad.limitedDistance ? "Broj kilometara, dodacu" : "UNLIMITED"}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Agent Info">
+              Agent name: {{currentAd.agent.agentName}}
+              <br />
+              Date of foundation: {{currentAd.agent.dateFounded.substring(0,10)}}
+              <br />
+              Where can you find them/him: {{currentAd.agent.locations}}
+              <br />
+            </nz-descriptions-item>
+          </nz-descriptions>
+        </div>
+      </form>
+      <div style="margin-top:20px;" *ngIf="currentAd.ad.cdw">
+        <img src="../../../../assets/images/collisionDamageWaiver.png" alt="Collision Damage Waiver"
+          style="width: 180px; height: 120x;" />
+      </div>
+    </div>
+    <div class="col-lg-5 col-md-5 col-sm-12">
+      <h2> <strong>Photos</strong></h2>
+      <div class="row">
+        <nz-carousel nzAutoPlay [nzEnableSwipe]="true" [nzDots]="true">
+          <div nz-carousel-content *ngFor="let image of retrievedImages">
+            <img class="carousel-img" [src]=image>
+          </div>
+        </nz-carousel>
+     </div>
+      <div *ngIf="retrievedImages.length === 0">
+        <h3 style="color: black;">There are no images to show</h3>
+      </div>
+      <div style="margin-top:20px; float:right;">
+        <button nz-button nzType="primary" style="width: 120px; height:45px;" *ngIf="previousPage !== 'reservations'"
+          (click)="addToCart()"><i nz-icon nzType="shopping-cart" nzTheme="outline"></i>Add To Cart</button>
+      </div>
+      <div style="margin-top:20px;">
+        <button nz-button nzType="primary" (click)="open()" *ngIf="previousPage === 'reservations'"
+          style="width: 120px; height:45px;"><i nz-icon nzType="message" nzTheme="outline"></i>Message</button>
+      </div>
+    </div>
+  </div>
+  <nz-drawer [nzClosable]="false" [nzOffsetX]="childrenVisible ? 180 : 0" [nzWidth]="450" [nzVisible]="visible"
+    nzTitle="Send a message" (nzOnClose)="close()">
+    <form nz-form>
+      <div nz-row>
+        <div nz-col nzSpan="24">
+          <nz-form-item>
+            <nz-form-label>Text</nz-form-label>
+            <nz-form-control>
+              <input nz-input placeholder="Message text here" (change)="changeText($event)" style="height: 150px;" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row *ngIf="previousPage === 'reservations'">
+        <div nz-col nzSpan="24">
+          <nz-form-item>
+            <nz-form-label>Existing additional equipment</nz-form-label>
+            <nz-form-control>
+              <nz-tag *ngFor="let accessory of carAccessories" (click)="removeAccessoryAdded(accessory)">
+                {{accessory.description}}
+              </nz-tag>
+              <nz-tag (click)="openChildren()">+</nz-tag>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div>
+        <button nz-button nzType="primary" (click)="sendMessage()" style="width: 120px; height:45px;"><i nz-icon
+            nzType="send" nzTheme="outline"></i>Send</button>
+      </div>
+    </form>
+    <nz-drawer [nzClosable]="false" *ngIf="previousPage === 'reservations'" [nzVisible]="childrenVisible"
+      nzTitle="Send a request for one of these" (nzOnClose)="closeChildren()">
+      <div nz-row>
+        <div nz-col nzSpan="24">
+          <nz-form-item>
+            <nz-form-control>
+              <nz-tag *ngFor="let accessory of possibleAccessories" style="height: 25px; width: 120px;"
+                (click)="addAccessory(accessory)">
+                {{accessory.description}}
+              </nz-tag>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </nz-drawer>
+  </nz-drawer>
+</div>

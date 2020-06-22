@@ -1,0 +1,37 @@
+<div class="inputWrapper2">
+  <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"
+    (nzOnCancel)="handleCancel()">
+    <ng-template #modalTitle>
+      Create new fuel type
+    </ng-template>
+
+    <ng-template #modalContent>
+      <input style="width: 260px;" nz-input placeholder="Name" [(ngModel)]="name" />
+
+      <br />
+      <br />
+
+      <nz-select style="width: 260px;" nzShowSearchselectedType nzAllowClear nzPlaceHolder="Choose brand"
+        [(ngModel)]="brandId">
+        <nz-option *ngFor="let item of listOfData" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+      </nz-select>
+
+      <br />
+      <br />
+
+      <nz-select style="width: 260px;" nzShowSearchselectedType nzAllowClear nzPlaceHolder="Choose class"
+        [(ngModel)]="classId">
+        <nz-option *ngFor="let item of listOfData2" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+      </nz-select>
+
+      <br />
+      <br />
+      <br />
+    </ng-template>
+
+    <ng-template #modalFooter>
+      <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+      <button (click)="create()" nz-button nzType="primary">Create</button>
+    </ng-template>
+  </nz-modal>
+</div>
