@@ -17,22 +17,22 @@ export class CreateAdService {
               private store: Store<fromApp.AppState>) { }
 
   public getAllCarModels(body): Observable<any> {
-    return this.http.post(this.baseUrl + 'car-models', body);
+    return this.http.post(this.baseUrl + 'ad/car-models', body);
   }
 
   public postAd(body): Observable<any> {
-    return this.http.post(this.baseUrl + 'ads', body);
+    return this.http.post(this.baseUrl + 'ad/ads', body);
   }
 
   public getAdImage(id): Observable<any> {
-    return this.http.get(this.baseUrl + 'ads/'+id+'/image');
+    return this.http.get(this.baseUrl + 'ad/ads/'+id+'/image');
   }
 
   public agentRent(body): Observable<any> {
     this.subscriptionUser = this.store.select('auth').subscribe(userData => {
       this.activeUserToken = userData.user.token;
     });
-    return this.http.post(this.baseUrl + 'ads/availability', body, {
+    return this.http.post(this.baseUrl + 'rent/request/availability', body, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })

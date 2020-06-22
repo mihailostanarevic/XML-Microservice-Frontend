@@ -13,23 +13,23 @@ export class FuelTypeService {
   constructor(private http: HttpClient) { }
 
   public createFuelType(body): Observable<any> {
-    return this.http.post(this.baseUrl + 'fuel-types', body);
+    return this.http.post(this.baseUrl + 'ad/fuel-types', body);
   }
 
   public updateFuelType(body, id): Observable<any> {
-    return this.http.put(this.baseUrl + `fuel-types/${id}/fuel-type`, body);
+    return this.http.put(this.baseUrl + `ad/fuel-types/${id}/fuel-type`, body);
   }
 
   public getFuelType(id): Observable<any> {
-    return this.http.get(this.baseUrl + `fuel-types/${id}/fuel-type`);
+    return this.http.get(this.baseUrl + `ad/fuel-types/${id}/fuel-type`);
   }
 
   public getAllFuelTypes(): Observable<any> {
-    return this.http.get(this.baseUrl + `fuel-types`);
+    return this.http.get(this.baseUrl + `ad/fuel-types`);
   }
 
   public deleteFuelType(id): Observable<any> {
-    return this.http.delete(this.baseUrl + `fuel-types/${id}/fuel-type`);
+    return this.http.delete(this.baseUrl + `ad/fuel-types/${id}/fuel-type`);
   }
 
   public getFuelTypessWithFilter(filter = {}): Observable<any> {

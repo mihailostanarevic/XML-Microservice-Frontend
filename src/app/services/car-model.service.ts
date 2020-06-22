@@ -13,23 +13,23 @@ export class CarModelService {
   constructor(private http: HttpClient) { }
 
   public createCarModel(body): Observable<any> {
-    return this.http.post(this.baseUrl + 'car-models', body);
+    return this.http.post(this.baseUrl + 'ad/car-models', body);
   }
 
   public updateCarModel(body, id): Observable<any> {
-    return this.http.put(this.baseUrl + `car-models/${id}/car-model`, body);
+    return this.http.put(this.baseUrl + `ad/car-models/${id}/car-model`, body);
   }
 
   public getCarModel(id): Observable<any> {
-    return this.http.get(this.baseUrl + `car-models/${id}/car-model`);
+    return this.http.get(this.baseUrl + `ad/car-models/${id}/car-model`);
   }
 
   public getAllCarModels(): Observable<any> {
-    return this.http.get(this.baseUrl + `car-models`);
+    return this.http.get(this.baseUrl + `ad/car-models`);
   }
 
   public deleteCarModel(id): Observable<any> {
-    return this.http.delete(this.baseUrl + `car-models/${id}/car-model`);
+    return this.http.delete(this.baseUrl + `ad/car-models/${id}/car-model`);
   }
 
   public getCarModelsWithFilter(filter = {}): Observable<any> {

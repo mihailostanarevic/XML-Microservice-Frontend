@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import * as fromApp from '../../store/app.reducer';
+import { Store } from '@ngrx/store';
+import * as AuthActions from '../../auth/store/auth.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +16,8 @@ export class DashboardComponent implements OnInit {
   public isAgent: boolean;
   public isSimpleUser: boolean;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
     this.setupUser();
@@ -41,7 +45,7 @@ export class DashboardComponent implements OnInit {
   }
 
   logout(): void {
-    localStorage.clear();
+    this.store.dispatch(new AuthActions.Logout());
     this.router.navigateByUrl('auth/login');
   }
 
@@ -67,6 +71,26 @@ export class DashboardComponent implements OnInit {
 
   createFuelType(): void {
     this.router.navigateByUrl('dashboard/fuel-type');
+  }
+
+  createAd(): void {
+    this.router.navigateByUrl('dashboard/create-ad');
+  }
+
+  changeAvailability(): void {
+    this.router.navigateByUrl('dashboard/agent-rent');
+  }
+
+  showCart(): void {
+    this.router.navigateByUrl('dashboard/cart');
+  }
+
+  agentRequests(): void {
+    this.router.navigateByUrl('dashboard/agent/requests');
+  }
+
+  simpleUserRequests(): void {
+    this.router.navigateByUrl('dashboard/user/requests');
   }
 
 }

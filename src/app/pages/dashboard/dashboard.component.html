@@ -1,4 +1,4 @@
-<div> 
+<div>
   <nz-layout>
     <nz-header>
       <div class="logo">
@@ -30,6 +30,15 @@
               <li nz-menu-item>Advanced search</li>
             </ul>
           </li>
+          <li *ngIf="isAgent" nz-submenu>
+            <span title>Ad</span>
+            <ul>
+              <li (click)="createAd()" nz-menu-item>Create</li>
+              <li (click)="changeAvailability()" nz-menu-item>Agent ads</li>
+            </ul>
+          </li>
+          <li *ngIf="isAgent" (click)="agentRequests()" nz-menu-item>Requests</li>
+          <li *ngIf="isSimpleUser" (click)="simpleUserRequests()" nz-menu-item>Requests</li>
         </ul>
       </nz-sider>
       <nz-layout class="inner-layout">

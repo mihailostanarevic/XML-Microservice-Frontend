@@ -1,0 +1,70 @@
+<!-- dropdown list -->
+<div id="main-div">
+
+  <div class="example-input">
+    <input placeholder="Car Model" nz-input [(ngModel)]="inputCarModel"
+      (ngModelChange)="onChangeCarModel($event)" [nzAutocomplete]="auto" required/>
+    <nz-autocomplete [nzDataSource]="filteredCarModelOptions" #auto></nz-autocomplete>
+  </div>
+<hr>
+<!-- dropdown list -->
+<div>
+  <nz-select [(ngModel)]="selectedHandle" (ngModelChange)="gearChange($event)">
+    <nz-option *ngFor="let p of handleData" [nzValue]="p" [nzLabel]="p"></nz-option>
+  </nz-select>
+  <nz-select [(ngModel)]="selectedGearNumber">
+    <nz-option *ngFor="let c of gearNumberData[selectedHandle]" [nzValue]="c" [nzLabel]="c"></nz-option>
+  </nz-select>
+</div>
+<hr>
+<!-- dropdown list -->
+<div>
+  <nz-select [(ngModel)]="selectedFuelType" (ngModelChange)="fuelChange($event)">
+    <nz-option *ngFor="let p of fuelData" [nzValue]="p" [nzLabel]="p"></nz-option>
+  </nz-select>
+  <nz-select [(ngModel)]="selectedTankCapacity">
+    <nz-option *ngFor="let c of tankData[selectedFuelType]" [nzValue]="c" [nzLabel]="c"></nz-option>
+  </nz-select>
+</div>
+<hr>
+<!-- SLIKAAAAAAAAAAAAAAAAAAAAAAAA -->
+<div class="clearfix">
+  <nz-upload
+    class="upload-list-inline"
+    nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+    nzListType="picture"
+    [(nzFileList)]="fileList2"
+  >
+    <button nz-button>
+      <span><i nz-icon nzType="upload"></i> Upload</span>
+    </button>
+  </nz-upload>
+</div>
+<!-- SLIKAAAAAAAAAAAAAAAAAAAAAAAA -->
+<hr>
+<label nz-checkbox [(ngModel)]="isLimitedDistance">Limited Distance</label>
+<hr>
+<input nz-input placeholder="Available Kilometers Per Rent" [(ngModel)]="availableKilometers" style="width: 320px; text-align: center;" required/>
+<hr>
+<input nz-input placeholder="Kilometers Traveled" [(ngModel)]="kilometersTraveled" style="width: 320px;text-align: center;" required/>
+<hr>
+<input
+      #inputElement
+      style="width: 120px; text-align: center;"
+      nz-input
+      nz-tooltip
+      nzTooltipTrigger="focus"
+      nzTooltipPlacement="topLeft"
+      nzOverlayClassName="numeric-input"
+      [ngModel]="value"
+      [nzTooltipTitle]="title"
+      placeholder="Number of Child Seats"
+      (ngModelChange)="onChange($event)"
+      (blur)="onBlur()"
+      required
+    />
+<hr>
+<label nz-checkbox [(ngModel)]="isCDW" style="background-color: white;padding: 5px;">Collision Damage Waiver</label>
+<hr>
+<button nz-button nzType="default" (click)="createAd()" nzGhost>Create Ad</button>
+</div>

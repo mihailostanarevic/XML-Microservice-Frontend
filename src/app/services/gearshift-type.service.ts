@@ -13,23 +13,23 @@ export class GearshiftTypeService {
   constructor(private http: HttpClient) { }
 
   public createGearshiftType(body): Observable<any> {
-    return this.http.post(this.baseUrl + 'gearshift-types', body);
+    return this.http.post(this.baseUrl + 'ad/gearshift-types', body);
   }
 
   public updateGearshiftType(body, id): Observable<any> {
-    return this.http.put(this.baseUrl + `gearshift-types/${id}/gearshift-type`, body);
+    return this.http.put(this.baseUrl + `ad/gearshift-types/${id}/gearshift-type`, body);
   }
 
   public getGearshiftType(id): Observable<any> {
-    return this.http.get(this.baseUrl + `gearshift-types/${id}/gearshift-type`);
+    return this.http.get(this.baseUrl + `ad/gearshift-types/${id}/gearshift-type`);
   }
 
   public getAllGearshiftTypes(): Observable<any> {
-    return this.http.get(this.baseUrl + `gearshift-types`);
+    return this.http.get(this.baseUrl + `ad/gearshift-types`);
   }
 
   public deleteGearshiftType(id): Observable<any> {
-    return this.http.delete(this.baseUrl + `gearshift-types/${id}/gearshift-type`);
+    return this.http.delete(this.baseUrl + `ad/gearshift-types/${id}/gearshift-type`);
   }
 
   public getGearshiftTypessWithFilter(filter = {}): Observable<any> {
