@@ -13,18 +13,18 @@ export class RateService {
   constructor(private http: HttpClient) { }
 
   public rateAd(body) : Observable<any>{
-    return this.http.post(this.baseUrl + `ratings`, body);
+    return this.http.post(this.baseUrl + `ads/ratings`, body);
   }
 
   public getAllRatingsBySimpleUser(id) : Observable<any>{
-    return this.http.get(this.baseUrl + `ratings/${id}/simple-user`);
+    return this.http.get(this.baseUrl + `ads/ratings/${id}/simple-user`);
   }
 
   public getAllRatingsByAd(id) : Observable<any>{
-    return this.http.get(this.baseUrl + `ratings/${id}/ad`);
+    return this.http.get(this.baseUrl + `ads/ratings/${id}/ad`);
   }
 
   public getAvgRatingByAd(id) : Observable<any>{
-    return this.http.get(this.baseUrl + `ratings/avg/${id}/ad`);
+    return this.http.get(this.baseUrl + `ads/ratings/avg/${id}/ad`);
   }
 }

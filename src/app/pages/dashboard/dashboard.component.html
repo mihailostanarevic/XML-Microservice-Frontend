@@ -16,6 +16,7 @@
             title="Shopping Cart"
             (click)="showCart()">
         </li>
+        <li nz-menu-item *ngIf="isAdmin" (click)="commentRequests()">Comment requests</li>
         <li nz-menu-item (click)="logout()" style="float: right;">Log out</li>
       </ul>
     </nz-header>
@@ -32,7 +33,7 @@
               <li (click)="fuelTypes()" nz-menu-item>Fuel types</li>
             </ul>
           </li>
-          <li *ngIf="isAgent" nz-menu-item>Ads which need report</li>
+          <!-- <li *ngIf="isAgent" nz-menu-item>Ads which need report</li> -->
           <li *ngIf="isAdmin" nz-submenu>
             <span title>Create</span>
             <ul>
@@ -43,13 +44,14 @@
               <li (click)="createFuelType()" nz-menu-item>Fuel type</li>
             </ul>
           </li>
-          <li nz-submenu>
+          <li *ngIf="!isAdmin" nz-submenu>
             <span title>Search</span>
             <ul>
               <li (click)="search()" nz-menu-item>Regular search</li>
               <li nz-menu-item>Advanced search</li>
             </ul>
           </li>
+          <!-- <li *ngIf="isSimpleUser" (click)="reservations()" nz-menu-item>Reservations</li> -->
           <li *ngIf="isAgent" nz-submenu>
             <span title>Ad</span>
             <ul>

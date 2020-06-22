@@ -23,6 +23,7 @@ import { CarClassComponent } from './pages/create-forms/car-class/car-class.comp
 import { CarModelComponent } from './pages/create-forms/car-model/car-model.component';
 import { GearshiftTypeComponent } from './pages/create-forms/gearshift-type/gearshift-type.component';
 import { FuelTypeComponent } from './pages/create-forms/fuel-type/fuel-type.component';
+import { PendingCommentsComponent } from './pages/lists/pending-comments/pending-comments.component';
 
 
 const routes: Routes = [
@@ -53,6 +54,7 @@ const routes: Routes = [
       { path: 'fuel-type', component: FuelTypeComponent},
       { path: ':id/car-brand', component: CarBrandComponent},
       { path: ':id/car-class', component: CarClassComponent},
+      { path: 'pending-comments', component: PendingCommentsComponent},
     ],
 
   },

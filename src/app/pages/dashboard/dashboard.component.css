@@ -24,7 +24,7 @@
   }
 
   nz-content {
-    background-image: url('https://scontent.fbeg1-1.fna.fbcdn.net/v/t1.15752-9/104644778_319118996153696_3082992053881679159_n.jpg?_nc_cat=104&_nc_sid=b96e70&_nc_eui2=AeF6I4oIAaCUN3AC-_Ab62XTDr9jMFKMhPgOv2MwUoyE-HW3zL4xHYgiGGNZ6uOzoPzGWz6zXmv8gALLS9Sv5gRX&_nc_ohc=_HQPNO_0HKgAX-se0zd&_nc_ht=scontent.fbeg1-1.fna&oh=31331cb588f310369cce3f19a1caf012&oe=5F135544');
+    background-image: url('https://newsatnewscorpau.files.wordpress.com/2017/09/istock-489383260.jpg');
     background-position: center;
     background-repeat: no-repeat;
     width: 100%;
@@ -32,3 +32,13 @@
     padding: 24px;
     min-height: 700px;
   }
+
+  /* nz-content {
+    background-image: url('https://scontent.fbeg1-1.fna.fbcdn.net/v/t1.15752-9/104644778_319118996153696_3082992053881679159_n.jpg?_nc_cat=104&_nc_sid=b96e70&_nc_eui2=AeF6I4oIAaCUN3AC-_Ab62XTDr9jMFKMhPgOv2MwUoyE-HW3zL4xHYgiGGNZ6uOzoPzGWz6zXmv8gALLS9Sv5gRX&_nc_ohc=_HQPNO_0HKgAX-se0zd&_nc_ht=scontent.fbeg1-1.fna&oh=31331cb588f310369cce3f19a1caf012&oe=5F135544');
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    padding: 24px;
+    min-height: 700px;
+  } */

@@ -79,6 +79,7 @@ export class AdCardComponent implements OnInit {
     }
     this.commentService.writeComment(body).subscribe(() => {
       this.message.info('You have successfully commented this ad.');
+      this.commentModel = '';
     }, error => {
       console.log(error);
       this.message.info('You cannot comment this ad.');
@@ -95,13 +96,18 @@ export class AdCardComponent implements OnInit {
     }
     this.rateService.rateAd(body).subscribe(() => {
       this.message.info('You have successfully rated this ad.');
+      this.rateModel = 0;
     }, error => {
       console.log(error);
       this.message.info('You cannot rate this ad.');
+      this.rateModel = 0;
     });
   }
 
-  customerFullName(name, surname): String {
+  customerFullName(name, surname, agentName): String {
+    if(name === null && surname === null){
+      return agentName;
+    }
     return name + '' + surname;
   }
 }

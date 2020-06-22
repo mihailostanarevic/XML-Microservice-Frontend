@@ -12,23 +12,23 @@ export class CommentService {
   constructor(private http: HttpClient) { }
 
   public writeComment(body) : Observable<any>{
-    return this.http.post(this.baseUrl + `comments`, body);
+    return this.http.post(this.baseUrl + `ads/comments`, body);
   }
 
   public approveComment(body) : Observable<any>{
-    return this.http.put(this.baseUrl + `comments/approve-comment`, body);
+    return this.http.put(this.baseUrl + `ads/comments/approve-comment`, body);
   }
 
   public denyComment(body) : Observable<any>{
-    return this.http.put(this.baseUrl + `comments/deny-comment`, body);
+    return this.http.put(this.baseUrl + `ads/comments/deny-comment`, body);
   }
 
   public getAllCommentsByAd(id) : Observable<any>{
-    return this.http.get(this.baseUrl + `comments/${id}/ad`);
+    return this.http.get(this.baseUrl + `ads/comments/${id}/ad`);
   }
 
   public getAllPendingComments() : Observable<any>{
-    return this.http.get(this.baseUrl + `comments/pending`);
+    return this.http.get(this.baseUrl + `ads/comments/pending`);
   }
 
 }

@@ -13,7 +13,7 @@ export class MessageService {
   constructor(private http: HttpClient) { }
   
   sendMessage(body): Observable<any>{
-    return this.http.post(this.baseUrl + "message", body);
+    return this.http.post(this.baseUrl + "messages", body);
   }
 
   getMessagesForUser(id, idSender): Observable<any>{
@@ -21,7 +21,7 @@ export class MessageService {
     let queryParams = {
       params: new HttpParams().set("receiver", id).set("sender", idSender)
     }
-    return this.http.get(this.baseUrl + "message", queryParams);
+    return this.http.get(this.baseUrl + "messages", queryParams);
   }
 
   approveDenyAccessory(body): Observable<any> {
@@ -33,6 +33,6 @@ export class MessageService {
     let body = {
       seen: true
     }
-    return this.http.put(this.baseUrl + `message/${id}`, body);
+    return this.http.put(this.baseUrl + `messages/${id}`, body);
   }
 }
