@@ -1,0 +1,67 @@
+<div class="main-div">
+  <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu1">
+    Request status
+    <i nz-icon nzType="down"></i>
+  </a>
+  <nz-dropdown-menu #menu1="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item (click)="getAgentRequest('PENDING')">Pending</li>
+      <li nz-menu-item (click)="getAgentRequest('RESERVED')">Reserved</li>
+      <li nz-menu-item (click)="getAgentRequest('PAID')">Paid</li>
+      <li nz-menu-item (click)="getAgentRequest('CANCELED')">Canceled</li>
+      <li nz-menu-item (click)="getAgentRequest('CHECKED')">Checked</li>
+    </ul>
+  </nz-dropdown-menu>
+  <div style="float: right;">
+    <nz-page-header-subtitle>Request status</nz-page-header-subtitle>
+    <nz-page-header-title> {{ requestStatus }} </nz-page-header-title>
+  </div>
+
+  <nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed" style="margin-top: 5%;">
+    <thead>
+      <tr>
+        <th nzWidth="60px"></th>
+        <th>Customer</th>
+        <th nzCustomFilter>
+          Ad
+          <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+            <i nz-icon nzType="search"></i>
+          </nz-filter-trigger>
+        </th>
+        <th>Reception Date</th>
+        <th>Pick Up Address</th>
+        <th>#</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let data of nzTable.data">
+        <tr>
+          <td [nzExpand]="expandSet.has(data.id)" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
+          <td>{{ data.customer }}</td>
+          <td>{{ data.ad }}</td>
+          <td>{{ data.receptionDate }}</td>
+          <td>{{ data.pickUpAddress }}</td>
+          <td><button
+                nz-button nzType="primary" nzGhost
+                *ngIf="data.requestStatus === 'PENDING'"
+                (click)="approveRequest(data.id)"
+                >Approve</button></td>
+        </tr>
+        <tr [nzExpand]="expandSet.has(data.id)">
+          <span> {{ data.description }} </span>
+        </tr>
+      </ng-container>
+    </tbody>
+  </nz-table>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Search ad" [(ngModel)]="searchValue" />
+        <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+          Search
+        </button>
+        <button nz-button nzSize="small" (click)="reset()">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  </div>

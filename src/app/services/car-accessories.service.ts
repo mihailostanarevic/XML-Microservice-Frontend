@@ -13,6 +13,6 @@ export class CarAccessoriesService {
   constructor(private http: HttpClient) { }
 
   getAllAccessories() : Observable<any> {
-    return this.http.get(this.baseUrl + "car-accessories");
+    return this.http.get(this.baseUrl + "ad/car-accessories");
   }
 }

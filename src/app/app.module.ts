@@ -22,6 +22,9 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegistrationComponent } from './auth/registration/registration.component';
 import { AuthEffects } from './auth/store/auth.effects';
 import { AdCardComponent } from './pages/ad-card/ad-card.component';
+import { AgentRentComponent } from './pages/ad/agent-rent/agent-rent.component';
+import { CreateAdComponent } from './pages/ad/create-ad/create-ad.component';
+import { CartComponent } from './pages/cart/cart.component';
 import { CarBrandComponent } from './pages/create-forms/car-brand/car-brand.component';
 import { CarClassComponent } from './pages/create-forms/car-class/car-class.component';
 import { CarModelComponent } from './pages/create-forms/car-model/car-model.component';
@@ -29,6 +32,8 @@ import { FuelTypeComponent } from './pages/create-forms/fuel-type/fuel-type.comp
 import { GearshiftTypeComponent } from './pages/create-forms/gearshift-type/gearshift-type.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AdDetailsComponent } from './pages/details/ad-details/ad-details.component';
+import { AgentRequestsComponent } from './pages/request/agent-requests/agent-requests.component';
+import { SimpleUserRequestsComponent } from './pages/request/simple-user-requests/simple-user-requests.component';
 import { ReservationsComponent } from './pages/reservations/reservations.component';
 import { LightSearchComponent } from './pages/search-forms/light-search/light-search.component';
 import * as fromApp from './store/app.reducer';
@@ -55,7 +60,12 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     CarModelComponent,
     FuelTypeComponent,
     GearshiftTypeComponent,
-    CarClassComponent
+    CarClassComponent,
+    CreateAdComponent,
+    AgentRentComponent,
+    CartComponent,
+    AgentRequestsComponent,
+    SimpleUserRequestsComponent
   ],
   imports: [
     BrowserModule,

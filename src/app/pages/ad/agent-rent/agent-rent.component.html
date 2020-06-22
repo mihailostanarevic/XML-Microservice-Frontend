@@ -1,0 +1,81 @@
+<nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed">
+  <thead>
+    <tr>
+      <th nzCustomFilter>
+        Name
+        <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+          <i nz-icon nzType="search"></i>
+        </nz-filter-trigger>
+      </th>
+      <th>Limited Distance</th>
+      <th>Available Kilometers Per Rent</th>
+      <th>Seats</th>
+      <th>Collision Demage Waiver</th>
+      <th>#</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of nzTable.data">
+      <td>{{ data.name }}</td>
+      <td>
+        <i nz-icon nzType="check" nzTheme="outline" *ngIf="data.limitedDistance"></i>
+        <i nz-icon nzType="close" nzTheme="outline" *ngIf="!data.limitedDistance"></i>
+      </td>
+      <td>{{ data.availableKilometersPerRent }}</td>
+      <td>{{ data.seats }}</td>
+      <td>
+        <i nz-icon nzType="check" nzTheme="outline" *ngIf="data.cdw"></i>
+        <i nz-icon nzType="close" nzTheme="outline" *ngIf="!data.cdw"></i>
+      </td>
+      <td><button
+        nz-button nzType="primary" nzGhost
+        (click)="createRequest(data.id)">Create Request</button>
+        <nz-modal
+          [(nzVisible)]="isVisible"
+          nzTitle="Create Request"
+          (nzOnCancel)="handleCancel()"
+          (nzOnOk)="handleOk()">
+            <nz-range-picker
+            [nzShowTime]="{ nzFormat: 'HH:mm' }"
+            nzFormat="yyyy-MM-dd HH:mm"
+            [nzPlaceHolder]="['Start Time', 'End Time']"
+            ngModel
+            (ngModelChange)="onChange($event)"
+          ></nz-range-picker>
+          <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" style="margin-left: 15px;">
+            Address
+            <i nz-icon nzType="down"></i>
+          </a>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu *ngFor="let location of data.fullLocations">
+              <li nz-menu-item (click)="pickUpAddress($event, location.id)">
+                {{ location.street }} {{ location.number }}, {{ location.city }}
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+          <hr>
+          <div class="example-input" style="display: inline-block; width: 70%;">
+            <input placeholder="Type Username"
+              nz-input [(ngModel)]="inputUsername"
+              (ngModelChange)="onChangeInputUser($event)"
+              [nzAutocomplete]="auto" />
+            <nz-autocomplete [nzDataSource]="filteredOptions" #auto></nz-autocomplete>
+          </div>
+          <button nz-button nzType="primary" nzGhost
+            style="margin-left: 5%;"
+            (click)="createProfile()">Create One</button>
+        </nz-modal></td>
+    </tr>
+  </tbody>
+</nz-table>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+      <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+        Search
+      </button>
+      <button nz-button nzSize="small" (click)="reset()">Reset</button>
+    </div>
+  </div>
+</nz-dropdown-menu>

@@ -28,11 +28,15 @@ export class UserService {
     this.subscriptionUser = this.store.select('auth').subscribe(userData => {
       this.activeUserToken = userData.user.token;
     });
-    return this.http.get(this.baseUrl + 'users/'+body.id+'/ads' ,{
+    return this.http.get(this.baseUrl + 'ad/ads/'+body.id+'/ads' ,{
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })
     });
+  }
+
+  getUsers(): Observable<any> {
+    return this.http.get(this.baseUrl + `auth/customers`);
   }
 
 }
