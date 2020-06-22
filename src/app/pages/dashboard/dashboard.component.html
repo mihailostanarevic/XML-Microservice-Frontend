@@ -13,10 +13,28 @@
     <nz-layout>
       <nz-sider nzWidth="200px" nzTheme="light">
         <ul nz-menu nzTheme="dark" nzMode="inline" class="sider-menu">
+          <li *ngIf="isAdmin" nz-submenu>
+            <span title>Lists</span>
+            <ul>
+              <li (click)="createCarBrand()" nz-menu-item>Brands</li>
+              <li (click)="createCarClass()" nz-menu-item>Classes</li>
+              <li (click)="createCarModel()" nz-menu-item>Models</li>
+              <li (click)="createGearshiftType()" nz-menu-item>Gearshift types</li>
+              <li (click)="createFuelType()" nz-menu-item>Fuel types</li>
+            </ul>
+          </li>
+          <li nz-submenu>
+            <span title>Search</span>
+            <ul>
+              <li (click)="search()" nz-menu-item>Regular search</li>
+              <li nz-menu-item>Advanced search</li>
+            </ul>
+          </li>
         </ul>
       </nz-sider>
       <nz-layout class="inner-layout">
         <nz-content>
+          <router-outlet></router-outlet>
         </nz-content>
       </nz-layout>
     </nz-layout>

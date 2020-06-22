@@ -1,0 +1,75 @@
+<div *ngIf="messagesVisible">
+  <button nz-button nzType="primary" (click)="backToReservations()" style="margin-left: 18px;margin-bottom: 30px"><i nz-icon
+      nzType="arrow-left" nzTheme="outline"></i>Back to reservations</button>
+</div>
+<div class="row" style="margin-top: 20px;" *ngIf="messagesVisible === false">
+  <div class="col col-lg-4 col-md-6 col-sm-8" style="padding-top: 15px;" *ngFor="let ad of usersReservedRequests">
+    <app-ad-card [result]="ad" [page]="page" (messagesBoolean)="openMessages($event)"></app-ad-card>
+  </div>
+</div>
+
+<div class="container" *ngIf="messagesVisible">
+  <div class="col col-lg-10 col-md-12 col-sm-12" *ngFor="let message of messages" style="padding-bottom: 10px;">
+    <nz-card [nzActions]="[sender, timeSent, actionReply]" nzTitle="Message" [nzHoverable]="true"
+      [nzExtra]="seenIndicator" (click)="seen(message)" *ngIf="message.user.id !== user.id">
+      {{message.text}}
+    </nz-card>
+    <nz-card [nzActions]="[sender, timeSent]" nzTitle="Message" [nzHoverable]="true"
+      [nzExtra]="seenIndicator" (click)="seen(message)" *ngIf="message.user.id === user.id">
+      {{message.text}}
+    </nz-card>
+    <ng-template #actionReply>
+      <i nz-icon nzType="import" nzTheme="outline" (click)="open(message)"></i>
+    </ng-template>
+    <ng-template #seenIndicator>
+      <i nz-icon nzType="eye" nzTheme="fill" *ngIf="message.seen"></i>
+    </ng-template>
+    <ng-template #timeSent>
+      {{message.dateSent}} {{message.timeSent}}
+    </ng-template>
+    <ng-template #sender>
+      {{message.user.name}}
+    </ng-template>
+  </div>
+  <nz-drawer [nzClosable]="false" [nzWidth]="450" [nzVisible]="visible" nzPlacement="right" nzTitle="Send message"
+    (nzOnClose)="close()">
+    <form nz-form>
+      <div nz-row>
+        <div nz-col nzSpan="24">
+          <nz-form-item>
+            <nz-form-label>Text</nz-form-label>
+            <nz-form-control>
+              <textarea rows="4" nz-input placeholder="Message text here" [(ngModel)]="text" name="text"
+                style="height: 150px;"></textarea>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row *ngIf="user.userRole !== 'SIMPLE_USER_ROLE'">
+        <div nz-col nzSpan="24">
+          Requested additional equipment
+          <nz-form-item *ngIf="carAccessories.length > 0">
+            <table style="border: none;margin-top: 20px;">
+              <tbody>
+                <tr *ngFor="let accessory of carAccessories">
+                  <td>{{accessory.description}}</td>
+                  <td><button nz-button nzType="primary" nzGhost (click)="approveEquipment(accessory)"
+                      style="margin-left: 18px;">Approve</button></td>
+                  <td><button nz-button nzType="danger" nzGhost (click)="denyEquipment(accessory)"
+                      style="margin-left: 18px;">Deny</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </nz-form-item>
+          <nz-form-item *ngIf="carAccessories.length === 0">
+            No additional equipment has been requested
+          </nz-form-item>
+        </div>
+      </div>
+      <div style="float: right;">
+        <button nz-button nzType="primary" (click)="sendMessage()" style="width: 120px; height:45px;"><i nz-icon
+            nzType="send" nzTheme="outline"></i>Send</button>
+      </div>
+    </form>
+  </nz-drawer>
+</div>

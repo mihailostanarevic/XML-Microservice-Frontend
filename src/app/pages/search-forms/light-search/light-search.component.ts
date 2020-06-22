@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SearchService } from 'src/app/services/search.service';
+import { SearchService } from '../../../services/search.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
@@ -7,8 +7,8 @@ import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
 
 
 @Component({
-  selector: 'app-light-search-form',
-  templateUrl: './light-search-form.component.html',
+  selector: 'app-light-search',
+  templateUrl: './light-search.component.html',
   styles: [
     `
       nz-range-picker{
@@ -16,9 +16,9 @@ import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
       }
     `
   ],
-  styleUrls: ['./light-search-form.component.css']
+  styleUrls: ['./light-search.component.css']
 })
-export class LightSearchFormComponent implements OnInit {
+export class LightSearchComponent implements OnInit {
   city: String;
   dateFrom : Date;
   dateTo : Date;
@@ -27,17 +27,21 @@ export class LightSearchFormComponent implements OnInit {
   showResults: Boolean;
   searchResults: Object[];
   page:string = '"search"';
+  isVisible:boolean;
 
   constructor(private router: Router, private searchService: SearchService, private message: NzMessageService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
+    this.showResults = false;
+    this.isVisible = false;
+    this.open();
     localStorage.setItem("page-leading-to-details", this.page);
     this.page = 'search';
     this.dates = {
       from : "",
       to: ""
     }
-    this.showResults = false;
+    
     this.validateForm = this.fb.group({
       city: [null, [Validators.required]],
       dates: [null, [Validators.required]]
@@ -77,6 +81,7 @@ export class LightSearchFormComponent implements OnInit {
 
     this.searchService.lightSearch(data).subscribe(data => {
       this.showResults = true;
+      this.isVisible = false;
       this.searchResults = data;
       if(data.length > 0){
         for(let result of data){
@@ -91,6 +96,7 @@ export class LightSearchFormComponent implements OnInit {
   }
 
   backToSearch() : void {
+    this.isVisible = true;
     this.showResults = false;
   }
 
@@ -98,5 +104,15 @@ export class LightSearchFormComponent implements OnInit {
     // Can not select days before today and today
     return differenceInCalendarDays(current, new Date()) < 2;
   };
+
+  handleCancel(): void {
+    this.isVisible = false;
+    this.showResults = true;
+  }
+
+  open(): void {
+    this.isVisible = true;
+    this.showResults = false;
+  }
 
 }

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-
 import { LoginComponent } from './auth/login/login.component';
 import { RegistrationComponent } from './auth/registration/registration.component';
 import { LimitRedirectComponent } from './auth/limit-redirect/limit-redirect.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { LightSearchComponent } from './pages/search-forms/light-search/light-search.component';
 
 
 const routes: Routes = [
@@ -16,7 +16,8 @@ const routes: Routes = [
 
   {
     path: 'dashboard', component: DashboardComponent, children: [
-    
+      {path: 'regular-search', component: LightSearchComponent},
+
     ],
   
   },

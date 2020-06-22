@@ -1,0 +1,29 @@
+<div>
+  <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"
+        (nzOnCancel)="handleCancel()">
+        <ng-template #modalTitle>
+            Create new gearshift type
+        </ng-template>
+
+        <ng-template #modalContent>
+          <form nz-form [formGroup]="validateForm" class="form">
+            <nz-form-item>
+              <nz-form-control [nzSm]="14" [nzXs]="24">
+                <input nz-input id="type" formControlName="type" placeholder="Type"/>
+              </nz-form-control>
+            </nz-form-item>
+            
+            <nz-form-item>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+                <input nz-input id="numberOfGears" formControlName="numberOfGears" placeholder="Number of gears" />
+                </nz-form-control>
+            </nz-form-item>
+          </form>
+        </ng-template>
+
+        <ng-template #modalFooter>
+            <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+            <button (click)="submitForm()" nz-button nzType="primary" [disabled]="!validateForm.valid || !isValid">Create</button>
+        </ng-template>
+    </nz-modal>
+</div>
