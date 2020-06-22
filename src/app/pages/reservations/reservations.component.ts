@@ -114,7 +114,7 @@ export class ReservationsComponent implements OnInit {
       id: accessory.messageAccessoryID,
       approved: true
     }
-    
+
     console.log(body);
     this.messageService.approveDenyAccessory(body).subscribe();
   }
@@ -127,7 +127,7 @@ export class ReservationsComponent implements OnInit {
           oneMessage["seen"] = true;
         }
       }
-  
+
       this.messageService.seen(message["id"]).subscribe();
     }
   }

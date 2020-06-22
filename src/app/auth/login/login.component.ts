@@ -3,6 +3,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
 import * as moment from 'moment';
+import * as fromApp from '../../store/app.reducer';
+import * as AuthActions from '../store/auth.actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +18,11 @@ export class LoginComponent implements OnInit {
 
   private attempts: number;
 
-  constructor(private route: ActivatedRoute, private message: NzMessageService, private fb: FormBuilder, private router: Router) { }
+  constructor(private route: ActivatedRoute,
+              private message: NzMessageService,
+              private fb: FormBuilder,
+              private router: Router,
+              private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -41,17 +48,14 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm(): void {
-    if(Number(localStorage.getItem('attempts')) >=3){
-      const currentTime = moment().format('HH:mm:ss');
-      var array = currentTime.split(':');
-      localStorage.setItem('hours', array[0]);
-      localStorage.setItem('minutes', array[1]);
-      this.router.navigateByUrl('auth/limit-redirect');
-    }
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
+    this.store.dispatch(new AuthActions.LoginStart({
+      email: this.validateForm.value.username,
+      password: this.validateForm.value.password
+    }));
 
     // {
     //   this.authService.login(this.validateForm.value).subscribe(() => {

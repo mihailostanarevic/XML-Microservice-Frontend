@@ -9,6 +9,9 @@ import { Ad } from 'src/app/shared/ad.model';
 import { Agent } from 'src/app/shared/agent.model';
 import { Address } from 'src/app/shared/address.model';
 import { CreateAdService } from '../../../services/ad.service';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../../../store/app.reducer';
+import * as CartActions from '../../../cart/store/cart.actions';
 
 @Component({
   selector: 'app-ad-details',
@@ -21,13 +24,13 @@ import { CreateAdService } from '../../../services/ad.service';
       max-width: 550px !important;
       overflow: hidden;
     }
-    
+
     .carousel-img{
       height: 300px;
       background-position: center !Important;
       background-size: cover !Important;
     }
-    
+
     `
   ]
 })
@@ -48,7 +51,7 @@ export class AdDetailsComponent implements OnInit {
   retrievedImages: string[] = [];
 
   constructor(
-    // private store: Store<fromApp.AppState>,
+    private store: Store<fromApp.AppState>,
     private carAccessoriesService: CarAccessoriesService,
     private carService: CarService, private message: NzMessageService,
     private messageService: MessageService,
@@ -184,10 +187,10 @@ export class AdDetailsComponent implements OnInit {
       timeTo: "",
       pickUpAddressID: ""
     }
-    // this.store.dispatch(new CartActions.AddToCart({
-    //   car: car,
-    //   ad: ad,
-    //   agent: agent
-    // }));
+    this.store.dispatch(new CartActions.AddToCart({
+      car: car,
+      ad: ad,
+      agent: agent
+    }));
   }
 }
