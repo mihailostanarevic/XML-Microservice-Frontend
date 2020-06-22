@@ -6,6 +6,6 @@ export class Ad {
     public dateTo: string,
     public timeFrom: string,
     public timeTo: string,
-    public pickUpAddressID: string
+    public pickUpAddress: string
   ) {}
 }

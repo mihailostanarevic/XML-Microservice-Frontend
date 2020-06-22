@@ -1,0 +1,32 @@
+<nz-table #nzTable [nzData]="listOfData">
+    <thead>
+      <tr>
+        <th nzCustomFilter>
+            Type
+        </th>
+        <th>
+            Gears number
+        </th>
+        <th *ngIf="isAdmin"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of nzTable.data">
+        <td>{{ data.type }}</td>
+        <td>{{ data.numberOfGears }}</td>
+        <td *ngIf="isAdmin">
+            <button (click)="delete(data.id)" nz-button nzType="danger">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+  <div class="filterInputs">
+    <input nz-input placeholder="Gearshift type" [(ngModel)]="gearshiftType" />
+    <br/>
+    <br/>
+    <input nz-input placeholder="Number of gears" [(ngModel)]="numberOfGears" />
+  </div>
+  <br/>
+  <br/>
+  <button (click)="search()" nz-button nzType="primary">Search</button>

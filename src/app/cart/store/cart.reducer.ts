@@ -61,7 +61,7 @@ export function cartReducer(state: State = initiaState, action: CartActions.Cart
         let updatedAdAddr: Ad = {
           ...updatedCartAddr.ad
         }
-        updatedAdAddr.pickUpAddressID = action.payload.address;
+        updatedAdAddr.pickUpAddress = action.payload.address;
         updatedCartAddr.ad = updatedAdAddr;
         const updatedCartListAddr: Cart[] = [...state.cartContent];
         updatedCartListAddr[action.payload.index] = updatedCartAddr;

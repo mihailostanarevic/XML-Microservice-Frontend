@@ -37,6 +37,13 @@ import { SimpleUserRequestsComponent } from './pages/request/simple-user-request
 import { ReservationsComponent } from './pages/reservations/reservations.component';
 import { LightSearchComponent } from './pages/search-forms/light-search/light-search.component';
 import * as fromApp from './store/app.reducer';
+import { CarBrandsComponent } from './pages/lists/car-brands/car-brands.component';
+import { CarClassesComponent } from './pages/lists/car-classes/car-classes.component';
+import { CarModelsComponent } from './pages/lists/car-models/car-models.component';
+import { GearshiftTypesComponent } from './pages/lists/gearshift-types/gearshift-types.component';
+import { FuelTypesComponent } from './pages/lists/fuel-types/fuel-types.component';
+import { AdsWhichNeedReportComponent } from './pages/lists/ads-which-need-report/ads-which-need-report.component';
+import { PendingCommentsComponent } from './pages/lists/pending-comments/pending-comments.component';
 
 registerLocaleData(en);
 
@@ -48,24 +55,32 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
 @NgModule({
   declarations: [
     AppComponent,
-    RegistrationComponent,
     LoginComponent,
     LimitRedirectComponent,
     DashboardComponent,
-    LightSearchComponent,
-    AdCardComponent,
-    AdDetailsComponent,
-    ReservationsComponent,
+    CarBrandsComponent,
+    CarClassesComponent,
+    CarModelsComponent,
+    GearshiftTypesComponent,
+    FuelTypesComponent,
     CarBrandComponent,
-    CarModelComponent,
-    FuelTypeComponent,
-    GearshiftTypeComponent,
     CarClassComponent,
+    CarModelComponent,
+    GearshiftTypeComponent,
+    FuelTypeComponent,
+    LightSearchComponent,
+    AdDetailsComponent,
     CreateAdComponent,
     AgentRentComponent,
+    RegistrationComponent,
+    CreateAdComponent,
     CartComponent,
+    AdCardComponent,
+    ReservationsComponent,
     AgentRequestsComponent,
-    SimpleUserRequestsComponent
+    SimpleUserRequestsComponent,
+    // AdsWhichNeedReportComponent,
+    PendingCommentsComponent
   ],
   imports: [
     BrowserModule,

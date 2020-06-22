@@ -33,7 +33,7 @@ export class CarModelService {
   }
 
   public getCarModelsWithFilter(filter = {}): Observable<any> {
-    return this.http.get(`${this.baseUrl}car-models/with-filter${this.buildFilterRequest(filter)}`);
+    return this.http.get(`${this.baseUrl}ad/car-models/with-filter${this.buildFilterRequest(filter)}`);
   }
 
   private buildFilterRequest(filterObject: any): String {

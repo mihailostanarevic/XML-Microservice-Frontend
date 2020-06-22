@@ -120,7 +120,7 @@ export class CartComponent implements OnInit {
               pickUpTime: ad.timeFrom,
               returnDate: ad.dateTo,
               returnTime: ad.timeTo,
-              pickUpAddress: ad.pickUpAddressID,
+              pickUpAddress: ad.pickUpAddress,
               agentID: cart.agent.id,
               carBrand: cart.car.brand,
               carModel: cart.car.model,
@@ -175,7 +175,7 @@ export class CartComponent implements OnInit {
 
     // check whether input fields(date & address) is filled
     checkInputFields(cart: Cart): boolean {
-      if(!cart.ad.dateFrom || !cart.ad.dateTo || !cart.ad.timeFrom || !cart.ad.timeTo || !cart.ad.pickUpAddressID) {
+      if(!cart.ad.dateFrom || !cart.ad.dateTo || !cart.ad.timeFrom || !cart.ad.timeTo || !cart.ad.pickUpAddress) {
         return false;
       }
       return true;

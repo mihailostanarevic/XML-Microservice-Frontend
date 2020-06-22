@@ -33,7 +33,7 @@ export class FuelTypeService {
   }
 
   public getFuelTypessWithFilter(filter = {}): Observable<any> {
-    return this.http.get(`${this.baseUrl}fuel-types/with-filter${this.buildFilterRequest(filter)}`);
+    return this.http.get(`${this.baseUrl}ad/fuel-types/with-filter${this.buildFilterRequest(filter)}`);
   }
 
   private buildFilterRequest(filterObject: any): String {

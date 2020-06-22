@@ -1,0 +1,30 @@
+<nz-table #nzTable [nzData]="listOfData">
+    <thead>
+      <tr>
+        <th nzCustomFilter>
+            Brand name
+        </th>
+        <th>
+            Model name
+        </th>
+        <th>
+            Pick up date
+        </th>
+        <th>
+            Return date
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of nzTable.data">
+        <td>{{ data.brandName }}</td>
+        <td>{{ data.modelName }}</td>
+        <td>{{ replace(data.pickUpDate) }}</td>
+        <td>{{ replace(data.returnDate) }}</td>
+        <td>
+          <button (click)="writeReport(data.requestAdId)" nz-button nzType="primary">Write report</button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
