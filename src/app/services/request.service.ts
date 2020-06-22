@@ -18,7 +18,7 @@ export class RequestService {
               private store: Store<fromApp.AppState>) { }
 
   public sendRequest(body): Observable<any> {
-    return this.http.post(this.baseUrl + 'rent-request', body);
+    return this.http.post(this.baseUrl + 'rent/request', body);
   }
 
   public getRequests(body): Observable<any> {

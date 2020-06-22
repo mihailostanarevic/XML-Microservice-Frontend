@@ -7,7 +7,16 @@
         </label>
       </div>
       <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
-        <li nz-menu-item (click)="logout()" style="margin-left: 85%;">Log out</li>
+        <li *ngIf="isSimpleUser" nz-menu-item style="float: left;">
+          <img
+            src="https://image.flaticon.com/icons/svg/2897/2897951.svg"
+            width="32"
+            height="32"
+            alt="Cart"
+            title="Shopping Cart"
+            (click)="showCart()">
+        </li>
+        <li nz-menu-item (click)="logout()" style="float: right;">Log out</li>
       </ul>
     </nz-header>
     <nz-layout>
@@ -16,11 +25,22 @@
           <li *ngIf="isAdmin" nz-submenu>
             <span title>Lists</span>
             <ul>
-              <li (click)="createCarBrand()" nz-menu-item>Brands</li>
-              <li (click)="createCarClass()" nz-menu-item>Classes</li>
-              <li (click)="createCarModel()" nz-menu-item>Models</li>
-              <li (click)="createGearshiftType()" nz-menu-item>Gearshift types</li>
-              <li (click)="createFuelType()" nz-menu-item>Fuel types</li>
+              <li (click)="carBrands()" nz-menu-item>Brands</li>
+              <li (click)="carClasses()" nz-menu-item>Classes</li>
+              <li (click)="carModels()" nz-menu-item>Models</li>
+              <li (click)="gearshiftTypes()" nz-menu-item>Gearshift types</li>
+              <li (click)="fuelTypes()" nz-menu-item>Fuel types</li>
+            </ul>
+          </li>
+          <li *ngIf="isAgent" nz-menu-item>Ads which need report</li>
+          <li *ngIf="isAdmin" nz-submenu>
+            <span title>Create</span>
+            <ul>
+              <li (click)="createCarBrand()" nz-menu-item>Brand</li>
+              <li (click)="createCarClass()" nz-menu-item>Class</li>
+              <li (click)="createCarModel()" nz-menu-item>Model</li>
+              <li (click)="createGearshiftType()" nz-menu-item>Gearshift type</li>
+              <li (click)="createFuelType()" nz-menu-item>Fuel type</li>
             </ul>
           </li>
           <li nz-submenu>

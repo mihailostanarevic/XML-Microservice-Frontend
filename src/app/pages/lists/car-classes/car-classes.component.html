@@ -1,0 +1,33 @@
+<nz-table #nzTable [nzData]="listOfData">
+    <thead>
+      <tr>
+        <th nzCustomFilter>
+            Name
+        </th>
+        <th>
+            Description
+        </th>
+        <th *ngIf="isAdmin"></th>
+        <th *ngIf="isAdmin"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of nzTable.data">
+        <td>{{ data.name }}</td>
+        <td>{{ data.description }}</td>
+        <td *ngIf="isAdmin">
+          <button (click)="update(data.id)" nz-button nzType="primary">Update</button>
+        </td>
+        <td *ngIf="isAdmin">
+            <button (click)="delete(data.id)" nz-button nzType="danger">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+  <div class="filterInputs">
+    <input nz-input placeholder="Class name" [(ngModel)]="className" />
+  </div>
+  <br/>
+  <br/>
+  <button (click)="search()" nz-button nzType="primary">Search</button>

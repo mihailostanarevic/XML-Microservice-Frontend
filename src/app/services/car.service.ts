@@ -9,10 +9,10 @@ import { Observable } from 'rxjs';
 export class CarService {
 
   private baseUrl = environment.baseUrl;
-  
+
   constructor(private http: HttpClient) { }
 
   getCarAccessories(id) : Observable<any>{
-    return this.http.get(this.baseUrl + `cars/${id}/car-accessories`);
+    return this.http.get(this.baseUrl + `ad/cars/${id}/car-accessories`);
   }
 }

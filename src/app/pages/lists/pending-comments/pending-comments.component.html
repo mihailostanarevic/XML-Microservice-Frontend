@@ -1,0 +1,30 @@
+<nz-table #nzTable [nzData]="listOfData">
+    <thead>
+      <tr>
+        <th nzCustomFilter>
+            Customer
+        </th>
+        <th>
+          Agent
+        </th>
+        <th>
+            Comment
+        </th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of nzTable.data">
+        <td>{{ customerFullName(data.customerFirstName, data.customerLastName) }}</td>
+        <td>{{ data.agentName }}</td>
+        <td>{{ data.comment }}</td>
+        <td>
+            <button (click)="approve(data.commentId)" nz-button nzType="primary">Approve</button>
+        </td>
+        <td>
+            <button (click)="deny(data.commentId)" nz-button nzType="danger">Deny</button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>

@@ -33,7 +33,7 @@ export class GearshiftTypeService {
   }
 
   public getGearshiftTypessWithFilter(filter = {}): Observable<any> {
-    return this.http.get(`${this.baseUrl}gearshift-types/with-filter${this.buildFilterRequest(filter)}`);
+    return this.http.get(`${this.baseUrl}ad/gearshift-types/with-filter${this.buildFilterRequest(filter)}`);
   }
 
   private buildFilterRequest(filterObject: any): String {

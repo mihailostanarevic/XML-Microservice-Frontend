@@ -167,16 +167,11 @@ export class AdDetailsComponent implements OnInit {
       gearshiftType: this.currentAd.car.gearshiftTypeType,
       gearshiftNumberOfGears: this.currentAd.car.getGearshiftTypeNumberOfGears
     }
-    const locations = this.currentAd.agent.fullLocations;
-    let addresses: Address[] = [];
-    locations.forEach(location => {
-      let address: Address = new Address(location.id, location.city, location.street, location.number);
-      addresses.push(address);
-    });
+    const locations = this.currentAd.agent.locations;
     const agent: Agent = {
       id: this.currentAd.agent.agentID,
       name: this.currentAd.agent.agentName,
-      locations: addresses
+      locations: locations
     }
     const ad: Ad = {
       id: this.currentAd.ad.adID,
@@ -185,12 +180,19 @@ export class AdDetailsComponent implements OnInit {
       dateTo: "",
       timeFrom: "",
       timeTo: "",
-      pickUpAddressID: ""
+      pickUpAddress: this.currentAd.agent.locations
     }
-    this.store.dispatch(new CartActions.AddToCart({
-      car: car,
-      ad: ad,
-      agent: agent
-    }));
+    let userRole: any;
+    this.store.select('auth').subscribe(authData => {
+      userRole = authData.user.userRole;
+    });
+    if(userRole === "SIMPLE_USER_ROLE") {
+      this.message.info('You add ' + car.brand + " " + car.model + " in your shopping cart.");
+      this.store.dispatch(new CartActions.AddToCart({
+        car: car,
+        ad: ad,
+        agent: agent
+      }));
+    }
   }
 }

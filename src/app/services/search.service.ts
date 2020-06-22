@@ -18,7 +18,7 @@ export class SearchService {
     let queryParams = {
       params : new HttpParams().set('city', data["city"]).set("from", data["from"]).set("to", data["to"])
     }
-    return this.http.get(this.serviceBaseUrl + '/light', queryParams);
+    return this.http.get(this.serviceBaseUrl + '/search/light', queryParams);
   }
 
   advancedSearch(data) : Observable<any> {

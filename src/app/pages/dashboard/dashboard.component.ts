@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import * as fromApp from '../../store/app.reducer';
 import { Store } from '@ngrx/store';
 import * as AuthActions from '../../auth/store/auth.actions';
+import * as CartActions from '../../cart/store/cart.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -46,11 +47,32 @@ export class DashboardComponent implements OnInit {
 
   logout(): void {
     this.store.dispatch(new AuthActions.Logout());
+    this.store.dispatch(new CartActions.ClearCart());
     this.router.navigateByUrl('auth/login');
   }
 
   search(): void {
     this.router.navigateByUrl('dashboard/regular-search');
+  }
+
+  carBrands(): void {
+    this.router.navigateByUrl('dashboard/car-brands');
+  }
+
+  carClasses(): void {
+    this.router.navigateByUrl('dashboard/car-classes');
+  }
+
+  carModels(): void {
+    this.router.navigateByUrl('dashboard/car-models');
+  }
+
+  gearshiftTypes(): void {
+    this.router.navigateByUrl('dashboard/gearshift-types');
+  }
+
+  fuelTypes(): void {
+    this.router.navigateByUrl('dashboard/fuel-types');
   }
 
   createCarBrand(): void {

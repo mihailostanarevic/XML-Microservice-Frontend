@@ -1,55 +1,15 @@
-<div style="background: #ECECEC;padding:30px;">
+<div style="background: transparent;padding:30px;">
   <div nz-row [nzGutter]="8">
-
-    <!-- <div nz-col [nzSpan]="8">
-      <nz-card nzHoverable style="width:200px" [nzCover]="coverTemplate"  style="border: 1px solid rgb(22, 22, 100); padding: 2px;">
-        <h4> Opel Insignia, Mid-size Sedan </h4>
-        <br>
-        <h6> <u>Fuel type:</u> <i><b> Diesel with gas</b></i></h6>
-        <h6> <u>Tank capacity:</u> <i><b> 80L </b></i> </h6>
-        <h6> <u>Gearshift type:</u><i><b> Manuel </b></i> </h6>
-        <h6> <u>No. of gears:</u> <i><b> Five  </b></i> </h6>
-        <br>
-        <br>
-        <nz-range-picker
-        [nzShowTime]="{ nzFormat: 'HH:mm' }"
-        nzFormat="yyyy-MM-dd HH:mm"
-        [nzPlaceHolder]="['Start Time', 'End Time']"
-        ngModel
-        (ngModelChange)="onChangeDate($event)"
-        (nzOnOk)="onOkDate($event)"
-      ></nz-range-picker>
-      <br>
-      <br>
-        <a nz-dropdown [nzDropdownMenu]="menu">
-          Pick Up Address
-          <i nz-icon nzType="down"></i>
-        </a>
-        <nz-dropdown-menu #menu="nzDropdownMenu">
-          <ul nz-menu nzSelectable>
-            <li nz-menu-item id="id">Novi Sad, Marka Kraljevica 8</li>
-          </ul>
-        </nz-dropdown-menu>
-      </nz-card>
-      <ng-template #coverTemplate>
-        <img
-          style="border-radius: 10px;"
-          alt="example"
-          src="https://autorepublika.com/wp-content/uploads/2020/03/2020-audi-a3-sportback.jpg"
-          height="300px"
-          width="200px"/>
-      </ng-template>
-    </div> -->
-
-
     <div nz-col [nzSpan]="8" *ngFor="let cart of cartContent">
-      <nz-card nzHoverable style="width:200px" [nzCover]="coverTemplate"  style="border: 1px solid rgb(22, 22, 100); padding: 2px;">
-        <h4> Opel Insignia, Mid-size Sedan </h4>
+      <nz-card nzHoverable style="width:200px" [nzCover]="coverTemplate"
+      style="border: 1px solid white; background: rgba(255, 255, 255, 0.4); border-radius: 10px;  padding: 2px;">
+        <h4> {{ cart.car.brand }} {{ cart.car.model }} </h4>
         <br>
-        <h6> <u>Fuel type:</u> <i><b> {{ cart.car.fuelType }} {{ cart.car.gas  === true ? "with gas" : "without gas"}}</b></i></h6>
-        <h6> <u>Tank capacity:</u> <i><b> {{ cart.car.tankCapacity }} </b></i> </h6>
-        <h6> <u>Gearshift type:</u><i><b> {{ cart.car.gearshiftType }} </b></i> </h6>
-        <h6> <u>No. of gears:</u> <i><b> {{ cart.car.gearshiftNumberOfGears }} </b></i> </h6>
+        <h6> <u>Fuel Type:</u> <i><b> {{ cart.car.fuelType }} {{ cart.car.gas  === true ? "with gas" : "without gas"}}</b></i></h6>
+        <h6> <u>Tank Capacity:</u> <i><b> {{ cart.car.tankCapacity }} </b></i> </h6>
+        <h6> <u>Gearshift Type:</u><i><b> {{ cart.car.gearshiftType }} </b></i> </h6>
+        <h6> <u>No. Of Gears:</u> <i><b> {{ cart.car.gearshiftNumberOfGears }} </b></i> </h6>
+        <h6> <u>Pick Up Address:</u> <i><b> {{ cart.agent.locations }} </b></i> </h6>
         <br>
         <br>
         <nz-range-picker
@@ -58,22 +18,10 @@
           [nzPlaceHolder]="['Start Time', 'End Time']"
           ngModel
           (ngModelChange)="onChangeDate($event, cart.ad.id)"
-          [nzDisabledDate]="disabledDate"    
+          [nzDisabledDate]="disabledDate"
         ></nz-range-picker>
         <br>
         <br>
-        <a nz-dropdown [nzDropdownMenu]="menu">
-          Pick Up Address
-          <i nz-icon nzType="down"></i>
-        </a>
-        <nz-dropdown-menu #menu="nzDropdownMenu">
-          <ul nz-menu nzSelectable *ngFor="let address of cart.agent.locations">
-            <li
-              (click)="changeAddress($event, cart.ad.id)"
-              nz-menu-item id="{{ address.id }}">{{ address.city }}, {{ address.street }} {{ address.number }}
-            </li>
-          </ul>
-        </nz-dropdown-menu>
       </nz-card>
       <ng-template #coverTemplate>
           <div *ngIf=cart.ad.photos[0]>

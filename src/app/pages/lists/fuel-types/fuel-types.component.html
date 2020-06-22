@@ -1,0 +1,36 @@
+<nz-table #nzTable [nzData]="listOfData">
+    <thead>
+      <tr>
+        <th nzCustomFilter>
+            Type
+        </th>
+        <th>
+            Tank capatity
+        </th>
+        <th>
+            Gas
+        </th>
+        <th *ngIf="isAdmin"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of nzTable.data">
+        <td>{{ data.type }}</td>
+        <td>{{ data.tankCapacity }}</td>
+        <td>{{ gas(data.gas) }}</td>
+        <td *ngIf="isAdmin">
+            <button (click)="delete(data.id)" nz-button nzType="danger">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+  <div class="filterInputs">
+    <input nz-input placeholder="Fuel type" [(ngModel)]="fuelType" />
+    <br/>
+    <br/>
+    <input nz-input placeholder="Tank capatity" [(ngModel)]="tankCapacity" />
+  </div>
+  <br/>
+  <br/>
+  <button (click)="search()" nz-button nzType="primary">Search</button>
