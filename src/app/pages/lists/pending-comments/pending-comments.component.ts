@@ -43,7 +43,10 @@ export class PendingCommentsComponent implements OnInit {
     });
   }
 
-  customerFullName(name, surname): String {
+  customerFullName(name, surname, agentName): String {
+    if(name === null && surname === null){
+      return agentName;
+    }
     return name + '' + surname;
   }
 }

@@ -7,6 +7,7 @@ import { Address } from './../../../shared/address.model';
 import { NzMessageService } from 'ng-zorro-antd';
 import { CreateAdService } from 'src/app/services/ad.service';
 import { Router } from '@angular/router';
+import { CommentService } from 'src/app/services/comment.service';
 
 interface DataItem {
   id: string;
@@ -45,11 +46,17 @@ export class AgentRentComponent implements OnInit, OnDestroy {
   filteredOptions: string[] = [];
   options = [];
 
+  listOfData2 = [];
+  adId: any = null;
+  commentFlag: any = null;
+  commentModel: any = null;
+
   constructor(private userService: UserService,
               private store: Store<fromApp.AppState>,
               private message: NzMessageService,
               private adService: CreateAdService,
-              private router: Router) { }
+              private router: Router,
+              private commentService: CommentService) { }
 
   ngOnInit(): void {
     this.userSubscription = this.store.select('auth').subscribe(userData => {
@@ -162,4 +169,35 @@ export class AgentRentComponent implements OnInit, OnDestroy {
     this.userSubscription.unsubscribe();
   }
 
+  seeComments(id): void {
+    this.adId = id;
+    this.commentService.getAllCommentsByAd(this.adId).subscribe(data => {
+      this.listOfData2 = data;
+      this.commentFlag = true;
+    })
+  }
+
+  confirmComment(): void {
+    this.commentFlag = false;
+    const body = {
+      comment: this.commentModel,
+      userId: this.agentID,
+      adId: this.adId
+
+    }
+    this.commentService.writeComment(body).subscribe(() => {
+      this.message.info('You have successfully commented this ad.');
+      this.commentModel = '';
+    }, error => {
+      console.log(error);
+      this.message.info('You cannot comment this ad.');
+    });
+  }
+
+  customerFullName(name, surname, agentName): String {
+    if(name === null && surname === null){
+      return agentName;
+    }
+    return name + '' + surname;
+  }
 }
