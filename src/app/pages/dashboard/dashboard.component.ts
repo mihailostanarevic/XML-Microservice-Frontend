@@ -115,4 +115,11 @@ export class DashboardComponent implements OnInit {
     this.router.navigateByUrl('dashboard/user/requests');
   }
 
+  commentRequests(): void {
+    this.router.navigateByUrl('dashboard/pending-comments');
+  }
+
+  reservations(): void {
+    this.router.navigateByUrl('dashboard/reservations');
+  }
 }

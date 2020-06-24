@@ -18,7 +18,7 @@ export class CommentService {
 
   public writeComment(body) : Observable<any>{
     this.getToken();
-    return this.http.post(this.baseUrl + `comments`, body, {
+    return this.http.post(this.baseUrl + `ads/comments`, body, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })
@@ -27,7 +27,7 @@ export class CommentService {
 
   public approveComment(body) : Observable<any>{
     this.getToken();
-    return this.http.put(this.baseUrl + `comments/approve-comment`, body, {
+    return this.http.put(this.baseUrl + `ads/comments/approve-comment`, body, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })
@@ -36,7 +36,7 @@ export class CommentService {
 
   public denyComment(body) : Observable<any>{
     this.getToken();
-    return this.http.put(this.baseUrl + `comments/deny-comment`, body, {
+    return this.http.put(this.baseUrl + `ads/comments/deny-comment`, body, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })
@@ -45,7 +45,7 @@ export class CommentService {
 
   public getAllCommentsByAd(id) : Observable<any>{
     this.getToken();
-    return this.http.get(this.baseUrl + `comments/${id}/ad`, {
+    return this.http.get(this.baseUrl + `ads/comments/${id}/ad`, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })
@@ -54,7 +54,7 @@ export class CommentService {
 
   public getAllPendingComments() : Observable<any>{
     this.getToken();
-    return this.http.get(this.baseUrl + `comments/pending`, {
+    return this.http.get(this.baseUrl + `ads/comments/pending`, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })

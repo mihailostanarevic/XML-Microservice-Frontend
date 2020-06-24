@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ReportService } from 'src/app/services/report.service';
 import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
@@ -13,7 +12,7 @@ export class AdsWhichNeedReportComponent implements OnInit {
   private user: any;
   listOfData = [];
 
-  constructor(private router: Router, private message: NzMessageService, private reportService: ReportService) { }
+  constructor(private router: Router, private message: NzMessageService) { }
 
   ngOnInit(): void {
     this.setupUser();
@@ -25,9 +24,9 @@ export class AdsWhichNeedReportComponent implements OnInit {
   }
 
   private setupData(): void {
-    this.reportService.getAllRequestAdsWhichNeedReport(this.user.id).subscribe(data => {
-      this.listOfData = data;
-    })
+    // this.reportService.getAllRequestAdsWhichNeedReport(this.user.id).subscribe(data => {
+    //   this.listOfData = data;
+    // })
   }
 
   writeReport(id): void {

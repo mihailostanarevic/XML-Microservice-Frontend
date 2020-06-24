@@ -19,7 +19,7 @@ export class RateService {
 
   public rateAd(body) : Observable<any>{
     this.getToken();
-    return this.http.post(this.baseUrl + `ratings`, body, {
+    return this.http.post(this.baseUrl + `ads/ratings`, body, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })
@@ -28,7 +28,7 @@ export class RateService {
 
   public getAllRatingsBySimpleUser(id) : Observable<any>{
     this.getToken();
-    return this.http.get(this.baseUrl + `ratings/${id}/simple-user`, {
+    return this.http.get(this.baseUrl + `ads/ratings/${id}/simple-user`, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })
@@ -37,7 +37,7 @@ export class RateService {
 
   public getAllRatingsByAd(id) : Observable<any>{
     this.getToken();
-    return this.http.get(this.baseUrl + `ratings/${id}/ad`, {
+    return this.http.get(this.baseUrl + `ads/ratings/${id}/ad`, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })
@@ -46,7 +46,7 @@ export class RateService {
 
   public getAvgRatingByAd(id) : Observable<any>{
     this.getToken();
-    return this.http.get(this.baseUrl + `ratings/avg/${id}/ad`, {
+    return this.http.get(this.baseUrl + `ads/ratings/avg/${id}/ad`, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })

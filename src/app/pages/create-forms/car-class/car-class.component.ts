@@ -15,9 +15,14 @@ export class CarClassComponent implements OnInit {
   isValid: boolean;
   isUpdate: boolean;
 
+  private id: any;
+  isVisible: boolean;
+
   constructor(private message: NzMessageService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private carClassService: CarClassService) {}
 
   ngOnInit(): void {
+    this.isVisible = false;
+    this.open();
     this.isValid = true;
     this.validateForm = this.fb.group({
       name: ['', [Validators.required]],
@@ -81,5 +86,84 @@ export class CarClassComponent implements OnInit {
   getCaptcha(e: MouseEvent): void {
     e.preventDefault();
   }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+
+  open() {
+    this.isVisible = true;
+  }
+
+  // validateForm: FormGroup;
+  // isValid: boolean;
+  // isUpdate: boolean;
+
+  // constructor(private message: NzMessageService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private carClassService: CarClassService) {}
+
+  // ngOnInit(): void {
+  //   this.isValid = true;
+  //   this.validateForm = this.fb.group({
+  //     name: ['', [Validators.required]],
+  //     description: ['', [Validators.required]],
+  //   });
+  //   this.isUpdate = false;
+  //   if(this.route.snapshot.params.id != undefined){
+  //     this.getDetails();
+  //   }
+  // }
+
+  // submitForm(): void {
+  //   for (const i in this.validateForm.controls) {
+  //     this.validateForm.controls[i].markAsDirty();
+  //     this.validateForm.controls[i].updateValueAndValidity();
+  //   }
+
+  //   {
+  //     if(!this.isUpdate){
+  //       this.carClassService.createCarClass(this.validateForm.value).subscribe(() => {
+  //         this.message.info('You have successfully created car class.');
+  //       }, error => {
+  //         this.message.info('Please check your data again. You have entered pre-existing data.');
+  //       });
+  //     }else if(this.isUpdate){
+  //       this.carClassService.updateCarClass(this.validateForm.value, this.route.snapshot.params.id).subscribe(() => {
+  //         this.message.info('You have successfully updated car class.');
+  //       }, error => {
+  //         this.message.info('Please check your data again. You have entered pre-existing data.');
+  //       });
+  //     }
+  //   }
+  // }
+
+  // public getDetails(): void {
+  //   this.isUpdate = true;
+  //   this.carClassService.getCarClass(this.route.snapshot.params.id).subscribe(data =>{
+  //     const formValues = {
+  //       name: data.name,
+  //       description: data.description
+  //     }
+  //     this.validateForm.setValue(formValues);
+  //   })
+  // }
+
+
+  // updateConfirmValidator(): void {
+  //   /** wait for refresh value */
+  //   Promise.resolve().then(() => this.validateForm.controls.rePassword.updateValueAndValidity());
+  // }
+
+  // confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
+  //   if (!control.value) {
+  //     return { required: true };
+  //   } else if (control.value !== this.validateForm.controls.password.value) {
+  //     return { confirm: true, error: true };
+  //   }
+  //   return {};
+  // };
+
+  // getCaptcha(e: MouseEvent): void {
+  //   e.preventDefault();
+  // }
 
 }

@@ -28,18 +28,13 @@
   <nz-descriptions-item style="margin-left: 20px;" nzTitle="Date issued">{{result.ad.formattedDate}}</nz-descriptions-item>
   </nz-descriptions>
 </nz-card>
-<br/>
-<input *ngIf="commentFlag" nz-input placeholder="Comment" [(ngModel)]="commentModel" />
-<br *ngIf="commentFlag" />
-<br *ngIf="commentFlag" />
-<button *ngIf="commentFlag" (click)="confirmComment(result.ad.adID)" nz-button nzType="primary">Confirm</button>
 <br *ngIf="commentFlag" />
 <br *ngIf="commentFlag" />
 <nz-table *ngIf="commentFlag" #nzTable [nzData]="listOfData">
   <thead>
     <tr>
       <th nzCustomFilter>
-          Customer
+          User
       </th>
       <th>
         Agent
@@ -51,17 +46,23 @@
   </thead>
   <tbody>
     <tr *ngFor="let data of nzTable.data">
-      <td>{{ customerFullName(data.customerFirstName, data.customerLastName) }}</td>
+      <td>{{ customerFullName(data.customerFirstName, data.customerLastName, data.agentName) }}</td>
       <td>{{ data.agentName }}</td>
       <td>{{ data.comment }}</td>
     </tr>
   </tbody>
 </nz-table>
+<!-- <br *ngIf="commentFlag" /> -->
+<br *ngIf="commentFlag" />
+<input *ngIf="commentFlag" nz-input placeholder="Comment" [(ngModel)]="commentModel" />
+<br *ngIf="commentFlag" />
+<br *ngIf="commentFlag" />
+<button *ngIf="commentFlag" (click)="confirmComment(result.ad.adID)" nz-button nzType="primary">Confirm</button>
 
-
+<!-- <br *ngIf="rateFlag" /> -->
+<br *ngIf="rateFlag" />
 <nz-rate *ngIf="rateFlag" [(ngModel)]="rateModel" [nzTooltips]="tooltips"></nz-rate>
 <button *ngIf="rateFlag" (click)="confirmRate(result.ad.adID)" style="margin-left: 25px;" nz-button nzType="primary">Confirm</button>
-
 
 <nz-card [nzActions]="[actionInfo, commenting, rating, actionMessages]" [nzHoverable]="true" *ngIf="page === 'reservations'">
   <nz-descriptions nzLayout="horizontal">

@@ -22,7 +22,7 @@ export class UserService {
     let queryParam = {
       params: new HttpParams().set("status", "RESERVED")
     }
-    return this.http.get(this.baseUrl + `users/${id}/requests`, queryParam);
+    return this.http.get(this.baseUrl + `auth/users/${id}/requests`, queryParam);
   }
 
   public getAgentAds(body): Observable<any> {

@@ -19,7 +19,7 @@ export class MessageService {
 
   sendMessage(body): Observable<any>{
     this.getToken();
-    return this.http.post(this.baseUrl + "message", body, {
+    return this.http.post(this.baseUrl + "messages", body, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })
@@ -32,7 +32,7 @@ export class MessageService {
     let queryParams = {
       params: new HttpParams().set("receiver", id).set("sender", idSender)
     }
-    return this.http.get(this.baseUrl + "message", queryParams);
+    return this.http.get(this.baseUrl + "messages", queryParams);
   }
 
   approveDenyAccessory(body): Observable<any> {

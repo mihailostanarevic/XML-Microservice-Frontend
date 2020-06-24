@@ -94,5 +94,4 @@ export class CarBrandComponent implements OnInit {
   open() {
     this.isVisible = true;
   }
-
 }
