@@ -18,6 +18,7 @@ export class UserService {
               private store: Store<fromApp.AppState>) { }
 
   getUsersReservedRequests(id): Observable<any> {
+    this.getToken();
     let queryParam = {
       params: new HttpParams().set("status", "RESERVED")
     }
@@ -25,9 +26,7 @@ export class UserService {
   }
 
   public getAgentAds(body): Observable<any> {
-    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
-      this.activeUserToken = userData.user.token;
-    });
+    this.getToken();
     return this.http.get(this.baseUrl + 'ad/ads/'+body.id+'/ads' ,{
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
@@ -36,7 +35,14 @@ export class UserService {
   }
 
   getUsers(): Observable<any> {
+    this.getToken();
     return this.http.get(this.baseUrl + `auth/users/customer`);
+  }
+
+  getToken(): void {
+    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
+      this.activeUserToken = userData.user.token;
+    });
   }
 
 }

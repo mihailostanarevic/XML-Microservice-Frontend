@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, Subscription } from 'rxjs';
+import * as fromApp from '../store/app.reducer';
+import { Store } from '@ngrx/store';
 
 @Injectable({
   providedIn: 'root'
@@ -9,31 +11,64 @@ import { Observable } from 'rxjs';
 export class GearshiftTypeService {
 
   private baseUrl = environment.baseUrl;
+  activeUserToken: string;
+  subscriptionUser: Subscription;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private store: Store<fromApp.AppState>) { }
 
   public createGearshiftType(body): Observable<any> {
-    return this.http.post(this.baseUrl + 'ad/gearshift-types', body);
+    this.getToken();
+    return this.http.post(this.baseUrl + 'ad/gearshift-types', body, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   public updateGearshiftType(body, id): Observable<any> {
-    return this.http.put(this.baseUrl + `ad/gearshift-types/${id}/gearshift-type`, body);
+    this.getToken();
+    return this.http.put(this.baseUrl + `ad/gearshift-types/${id}/gearshift-type`, body, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   public getGearshiftType(id): Observable<any> {
-    return this.http.get(this.baseUrl + `ad/gearshift-types/${id}/gearshift-type`);
+    this.getToken();
+    return this.http.get(this.baseUrl + `ad/gearshift-types/${id}/gearshift-type`, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   public getAllGearshiftTypes(): Observable<any> {
-    return this.http.get(this.baseUrl + `ad/gearshift-types`);
+    this.getToken();
+    return this.http.get(this.baseUrl + `ad/gearshift-types`, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   public deleteGearshiftType(id): Observable<any> {
-    return this.http.delete(this.baseUrl + `ad/gearshift-types/${id}/gearshift-type`);
+    this.getToken();
+    return this.http.delete(this.baseUrl + `ad/gearshift-types/${id}/gearshift-type`, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   public getGearshiftTypessWithFilter(filter = {}): Observable<any> {
-    return this.http.get(`${this.baseUrl}ad/gearshift-types/with-filter${this.buildFilterRequest(filter)}`);
+    this.getToken();
+    return this.http.get(`${this.baseUrl}ad/gearshift-types/with-filter${this.buildFilterRequest(filter)}`, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   private buildFilterRequest(filterObject: any): String {
@@ -56,5 +91,11 @@ export class GearshiftTypeService {
       }
     })
     return filterQuery;
+  }
+
+  getToken(): void {
+    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
+      this.activeUserToken = userData.user.token;
+    });
   }
 }

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import * as fromApp from '../store/app.reducer';
+import { Store } from '@ngrx/store';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +11,24 @@ import { Observable } from 'rxjs';
 export class CarAccessoriesService {
 
   private baseUrl = environment.baseUrl;
+  activeUserToken: string;
+  subscriptionUser: Subscription;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private store: Store<fromApp.AppState>) { }
 
   getAllAccessories() : Observable<any> {
-    return this.http.get(this.baseUrl + "ad/car-accessories");
+    this.getToken();
+    return this.http.get(this.baseUrl + "ad/car-accessories", {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
+  }
+
+  getToken(): void {
+    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
+      this.activeUserToken = userData.user.token;
+    });
   }
 }
