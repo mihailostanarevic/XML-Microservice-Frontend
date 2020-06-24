@@ -17,25 +17,44 @@ export class CreateAdService {
               private store: Store<fromApp.AppState>) { }
 
   public getAllCarModels(body): Observable<any> {
-    return this.http.post(this.baseUrl + 'ad/car-models', body);
+    this.getToken();
+    return this.http.post(this.baseUrl + 'ad/car-models', body, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   public postAd(body): Observable<any> {
-    return this.http.post(this.baseUrl + 'ad/ads', body);
+    this.getToken();
+    return this.http.post(this.baseUrl + 'ad/ads', body, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   public getAdImage(id): Observable<any> {
-    return this.http.get(this.baseUrl + 'ad/ads/'+id+'/image');
+    this.getToken();
+    return this.http.get(this.baseUrl + 'ad/ads/'+id+'/image', {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   public agentRent(body): Observable<any> {
-    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
-      this.activeUserToken = userData.user.token;
-    });
+    this.getToken();
     return this.http.post(this.baseUrl + 'rent/request/availability', body, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })
+    });
+  }
+
+  getToken(): void {
+    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
+      this.activeUserToken = userData.user.token;
     });
   }
 }

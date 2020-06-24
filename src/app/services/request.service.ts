@@ -18,13 +18,16 @@ export class RequestService {
               private store: Store<fromApp.AppState>) { }
 
   public sendRequest(body): Observable<any> {
-    return this.http.post(this.baseUrl + 'rent/request', body);
+    this.getToken();
+    return this.http.post(this.baseUrl + 'rent/request', body, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   public getRequests(body): Observable<any> {
-    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
-      this.activeUserToken = userData.user.token;
-    });
+    this.getToken();
     return this.http.get(this.baseUrl + 'rent/request/user/'+body.id+'/requests/'+body.requestStatus, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
@@ -33,9 +36,7 @@ export class RequestService {
   }
 
   public getAgentRequests(body): Observable<any> {
-    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
-      this.activeUserToken = userData.user.token;
-    });
+    this.getToken();
     return this.http.get(this.baseUrl + 'rent/request/agent/'+body.id+'/requests/'+body.requestStatus, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
@@ -44,9 +45,7 @@ export class RequestService {
   }
 
   public approveRequest(body): Observable<any> {
-    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
-      this.activeUserToken = userData.user.token;
-    });
+    this.getToken();
     return this.http.get(this.baseUrl + 'rent/request/'+body.id+'/requests/'+body.resID+"/approve", {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
@@ -55,9 +54,7 @@ export class RequestService {
   }
 
   public payRequest(body): Observable<any> {
-    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
-      this.activeUserToken = userData.user.token;
-    });
+    this.getToken();
     return this.http.put(this.baseUrl + 'rent/request/'+body.id+'/requests/'+body.requestID+"/pay",body ,{
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
@@ -66,13 +63,17 @@ export class RequestService {
   }
 
   public dropRequest(body): Observable<any> {
-    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
-      this.activeUserToken = userData.user.token;
-    });
+   this.getToken();
     return this.http.put(this.baseUrl + 'rent/request/'+body.id+'/requests/'+body.requestID+"/drop",body ,{
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })
+    });
+  }
+
+  getToken(): void {
+    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
+      this.activeUserToken = userData.user.token;
     });
   }
 }

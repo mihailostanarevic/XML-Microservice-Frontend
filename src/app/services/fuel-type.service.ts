@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, Subscription } from 'rxjs';
+import * as fromApp from '../store/app.reducer';
+import { Store } from '@ngrx/store';
 
 @Injectable({
   providedIn: 'root'
@@ -9,31 +11,64 @@ import { Observable } from 'rxjs';
 export class FuelTypeService {
 
   private baseUrl = environment.baseUrl;
+  activeUserToken: string;
+  subscriptionUser: Subscription;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private store: Store<fromApp.AppState>) { }
 
   public createFuelType(body): Observable<any> {
-    return this.http.post(this.baseUrl + 'ad/fuel-types', body);
+    this.getToken();
+    return this.http.post(this.baseUrl + 'ad/fuel-types', body, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   public updateFuelType(body, id): Observable<any> {
-    return this.http.put(this.baseUrl + `ad/fuel-types/${id}/fuel-type`, body);
+    this.getToken();
+    return this.http.put(this.baseUrl + `ad/fuel-types/${id}/fuel-type`, body, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   public getFuelType(id): Observable<any> {
-    return this.http.get(this.baseUrl + `ad/fuel-types/${id}/fuel-type`);
+    this.getToken();
+    return this.http.get(this.baseUrl + `ad/fuel-types/${id}/fuel-type`, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   public getAllFuelTypes(): Observable<any> {
-    return this.http.get(this.baseUrl + `ad/fuel-types`);
+    this.getToken();
+    return this.http.get(this.baseUrl + `ad/fuel-types`, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   public deleteFuelType(id): Observable<any> {
-    return this.http.delete(this.baseUrl + `ad/fuel-types/${id}/fuel-type`);
+    this.getToken();
+    return this.http.delete(this.baseUrl + `ad/fuel-types/${id}/fuel-type`, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   public getFuelTypessWithFilter(filter = {}): Observable<any> {
-    return this.http.get(`${this.baseUrl}ad/fuel-types/with-filter${this.buildFilterRequest(filter)}`);
+    this.getToken();
+    return this.http.get(`${this.baseUrl}ad/fuel-types/with-filter${this.buildFilterRequest(filter)}`, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   private buildFilterRequest(filterObject: any): String {
@@ -56,5 +91,11 @@ export class FuelTypeService {
       }
     })
     return filterQuery;
+  }
+
+  getToken(): void {
+    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
+      this.activeUserToken = userData.user.token;
+    });
   }
 }
