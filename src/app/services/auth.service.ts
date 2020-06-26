@@ -34,11 +34,15 @@ export class AuthService {
 
   public registerAgent(body): Observable<any> {
     this.getToken();
-    return this.http.post(this.baseUrl + 'auth/create-agent', body, {
+    return this.http.post(this.baseUrl + 'auth/auth/create-agent', body, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })
     });
+  }
+
+  public loggingLimit(): Observable<any> {
+    return this.http.get(this.baseUrl + `auth/auth/logging-limit`);
   }
 
   getToken(): void {

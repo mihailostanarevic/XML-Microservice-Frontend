@@ -48,7 +48,7 @@ export class AuthEffects {
     ofType(AuthActions.LOGIN_START),
     switchMap((authData: AuthActions.LoginStart) => {
       return this.http.put<AuthResponseData>(
-        environment.baseUrl + 'auth/login',
+        environment.baseUrl + 'auth/auth/login',
         {
           username: authData.payload.email,
           password: authData.payload.password,
@@ -81,7 +81,7 @@ export class AuthEffects {
     ofType(AuthActions.SIGNUP_START),
     switchMap((authData: AuthActions.SignupStart) => {
       return this.http.post<AuthResponseData>(
-        environment.baseUrl + 'auth/create-simple-user',
+        environment.baseUrl + 'auth/auth/create-simple-user',
         {
           username: authData.payload.username,
           password: authData.payload.password,

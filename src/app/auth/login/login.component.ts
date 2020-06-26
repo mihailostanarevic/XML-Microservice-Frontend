@@ -6,6 +6,8 @@ import * as moment from 'moment';
 import * as fromApp from '../../store/app.reducer';
 import * as AuthActions from '../store/auth.actions';
 import { Store } from '@ngrx/store';
+import { AuthService } from 'src/app/services/auth.service';
+import { RegistrationRequestService } from 'src/app/services/registration-request.service';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +24,8 @@ export class LoginComponent implements OnInit {
               private message: NzMessageService,
               private fb: FormBuilder,
               private router: Router,
+              private authService: AuthService,
+              private registrationRequestService: RegistrationRequestService,
               private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
@@ -29,22 +33,24 @@ export class LoginComponent implements OnInit {
       username: [null, [Validators.required, Validators.email, Validators.minLength(8)]],
       password: [null, [Validators.required, ]]
     });
-    if(!isNaN(parseFloat(localStorage.getItem('hours')))){
-      const currentTime = moment().format('HH:mm:ss');
-      var array = currentTime.split(':');
-      // if(Number(array[0]) - Number(localStorage.getItem('hours')) != 0 || Number(array[1]) - Number(localStorage.getItem('minutes')) == 0){
-      if(Number(array[0]) - Number(localStorage.getItem('hours')) != 0 || Number(array[1]) - Number(localStorage.getItem('minutes')) > 2 || Number(array[1]) - Number(localStorage.getItem('minutes')) < 0){
-        localStorage.clear();
+    const id = this.route.snapshot.params.id;
+    if(id != undefined){
+      const body = {
+        id: id
       }
+      this.registrationRequestService.approveRegistrationRequest(body).subscribe(() => {
+        this.message.info('You have registred successfully!');
+      },
+      error => {
+        this.message.info('Your activation link has expired.');
+      });
     }
-    if(isNaN(parseFloat(localStorage.getItem('attempts')))){
-      this.attempts = 0;
-    }else{
-      this.attempts = Number(localStorage.getItem('attempts'));
-    }
-    if(Number(localStorage.getItem('attempts')) >=3){
-      this.router.navigateByUrl('auth/limit-redirect');
-    }
+
+    this.authService.loggingLimit().subscribe(data => {
+      if(data.message === 'LIMIT'){
+        this.router.navigateByUrl('auth/limit-redirect');
+      }
+    });
   }
 
   submitForm(): void {
