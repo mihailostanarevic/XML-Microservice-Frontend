@@ -34,7 +34,8 @@ export class LoginFail implements Action {
   readonly type = LOGIN_FAIL;
   constructor(public payload: {
     message: string,
-    autoLogin: boolean
+    autoLogin: boolean,
+    redirect: boolean
   }) {}
 }
 
