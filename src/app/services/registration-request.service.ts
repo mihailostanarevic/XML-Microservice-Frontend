@@ -19,7 +19,7 @@ export class RegistrationRequestService {
 
   public getRegistrationRequests(): Observable<any> {
     this.getToken();
-    return this.http.get(this.baseUrl + 'auth/auth/registration-requests', {
+    return this.http.get(this.baseUrl + 'auth/registration-requests', {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })
@@ -28,7 +28,7 @@ export class RegistrationRequestService {
 
   public confirmRegistrationRequest(body): Observable<any> {
     this.getToken();
-    return this.http.put(this.baseUrl + `auth/auth/confirm-registration-request`, body, {
+    return this.http.put(this.baseUrl + `auth/confirm-registration-request`, body, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })
@@ -36,17 +36,12 @@ export class RegistrationRequestService {
   }
 
   public approveRegistrationRequest(body): Observable<any> {
-    this.getToken();
-    return this.http.put(this.baseUrl + `auth/auth/approve-registration-request`, body, {
-      headers: new HttpHeaders ({
-        'Auth-Token' : this.activeUserToken
-      })
-    });
+    return this.http.put(this.baseUrl + `auth/approve-registration-request`, body);
   }
 
   public denyRegistrationRequest(body): Observable<any> {
     this.getToken();
-    return this.http.put(this.baseUrl + `auth/auth/deny-registration-request`, body, {
+    return this.http.put(this.baseUrl + `auth/deny-registration-request`, body, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })

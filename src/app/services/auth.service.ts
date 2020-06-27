@@ -32,9 +32,13 @@ export class AuthService {
     }
   }
 
+  public registerSimpleUser(body): Observable<any> {
+    return this.http.post(this.baseUrl + 'auth/create-simple-user', body);
+  }
+
   public registerAgent(body): Observable<any> {
     this.getToken();
-    return this.http.post(this.baseUrl + 'auth/auth/create-agent', body, {
+    return this.http.post(this.baseUrl + 'auth/create-agent', body, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })
@@ -42,7 +46,7 @@ export class AuthService {
   }
 
   public loggingLimit(): Observable<any> {
-    return this.http.get(this.baseUrl + `auth/auth/logging-limit`);
+    return this.http.get(this.baseUrl + `auth/logging-limit`);
   }
 
   getToken(): void {

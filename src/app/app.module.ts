@@ -44,6 +44,7 @@ import { GearshiftTypesComponent } from './pages/lists/gearshift-types/gearshift
 import { FuelTypesComponent } from './pages/lists/fuel-types/fuel-types.component';
 import { AdsWhichNeedReportComponent } from './pages/lists/ads-which-need-report/ads-which-need-report.component';
 import { PendingCommentsComponent } from './pages/lists/pending-comments/pending-comments.component';
+import { RegistrationRequestComponent } from './registration-request/registration-request.component';
 
 registerLocaleData(en);
 
@@ -80,7 +81,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     AgentRequestsComponent,
     SimpleUserRequestsComponent,
     // AdsWhichNeedReportComponent,
-    PendingCommentsComponent
+    PendingCommentsComponent,
+    RegistrationRequestComponent,
   ],
   imports: [
     BrowserModule,
