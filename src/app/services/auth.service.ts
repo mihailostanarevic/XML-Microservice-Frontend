@@ -11,7 +11,7 @@ import * as AuthActions from '../auth/store/auth.actions';
 })
 export class AuthService {
   private tokenExpirationTimer: any;
-  private baseUrl = environment.baseUrl;
+  private baseUrl = environment.baseUrl + "auth/";
   subscriptionUser: Subscription;
   activeUserToken: string;
 

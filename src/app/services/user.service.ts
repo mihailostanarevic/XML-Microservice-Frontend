@@ -22,7 +22,11 @@ export class UserService {
     let queryParam = {
       params: new HttpParams().set("status", "RESERVED")
     }
-    return this.http.get(this.baseUrl + `auth/users/${id}/requests`, queryParam);
+    return this.http.get(this.baseUrl + `auth/users/${id}/requests?status=RESERVED`,{
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   public getAgentAds(body): Observable<any> {
@@ -36,7 +40,11 @@ export class UserService {
 
   getUsers(): Observable<any> {
     this.getToken();
-    return this.http.get(this.baseUrl + `auth/users/customer`);
+    return this.http.get(this.baseUrl + `auth/auth/users/customer`,{
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   getToken(): void {

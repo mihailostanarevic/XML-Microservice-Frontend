@@ -48,7 +48,7 @@ export class AuthEffects {
     ofType(AuthActions.LOGIN_START),
     switchMap((authData: AuthActions.LoginStart) => {
       return this.http.put<AuthResponseData>(
-        environment.baseUrl + 'auth/login',
+        environment.baseUrl + 'auth/auth/login',
         {
           username: authData.payload.email,
           password: authData.payload.password,
