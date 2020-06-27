@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 })
 export class RegistrationRequestService {
 
-  private baseUrl = environment.baseUrl;
+  private baseUrl = environment.baseUrl + "auth/";
   activeUserToken: string;
   subscriptionUser: Subscription;
 

@@ -32,7 +32,11 @@ export class MessageService {
     let queryParams = {
       params: new HttpParams().set("receiver", id).set("sender", idSender)
     }
-    return this.http.get(this.baseUrl + "messages", queryParams);
+    return this.http.get(this.baseUrl + "messages?receiver="+id+"&sender="+idSender, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   approveDenyAccessory(body): Observable<any> {
