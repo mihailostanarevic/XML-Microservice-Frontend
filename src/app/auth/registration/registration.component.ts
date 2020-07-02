@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
+import { AuthService } from './../../services/auth.service';
 
 @Component({
   selector: 'app-registration',
@@ -14,7 +15,10 @@ export class RegistrationComponent implements OnInit {
   isValid: boolean;
   htmlTagRegExp = '^(?!<.+?>).*$';
 
-  constructor(private message: NzMessageService, private fb: FormBuilder, private router: Router) {}
+  constructor(private message: NzMessageService,
+    private fb: FormBuilder,
+    private router: Router,
+    private authService: AuthService) {}
 
   ngOnInit(): void {
     this.isValid = true;
@@ -37,15 +41,16 @@ export class RegistrationComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
 
-    // {
-    //   this.authService.registerSimpleUser(this.validateForm.value).subscribe(() => {
-    //     console.log(this.validateForm.value);
-    //   }
-    //     , error => {
-    //     this.message.info('Please check your data again. You have entered pre-existing data.');
-    //   }
-    //   );
-    // }
+    {
+      this.authService.registerSimpleUser(this.validateForm.value).subscribe(() => {
+        console.log(this.validateForm.value);
+        this.message.success('You have successfully sent registration request!');
+      }
+        , error => {
+        this.message.info('Please check your data again. You have entered pre-existing data.');
+      }
+      );
+    }
   }
 
   backToLogin(): void {
