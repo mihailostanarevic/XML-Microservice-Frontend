@@ -18,9 +18,7 @@ export class LoginComponent implements OnInit {
 
   private attempts: number;
 
-  constructor(private route: ActivatedRoute,
-              private message: NzMessageService,
-              private fb: FormBuilder,
+  constructor(private fb: FormBuilder,
               private router: Router,
               private store: Store<fromApp.AppState>) { }
 
@@ -52,6 +50,7 @@ export class LoginComponent implements OnInit {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
+    console.log(this.validateForm.value.username + " => " + this.validateForm.value.password);
     this.store.dispatch(new AuthActions.LoginStart({
       email: this.validateForm.value.username,
       password: this.validateForm.value.password

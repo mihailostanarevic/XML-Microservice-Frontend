@@ -96,7 +96,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     CommonModule,
     StoreModule.forRoot(fromApp.appReducer),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
-    EffectsModule.forRoot([AuthEffects, AuthEffects])
+    EffectsModule.forRoot([AuthEffects])
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }, { provide: NZ_ICON_DEFAULT_TWOTONE_COLOR, useValue: '#00ff00' },
   { provide: NZ_ICONS, useValue: icons }],

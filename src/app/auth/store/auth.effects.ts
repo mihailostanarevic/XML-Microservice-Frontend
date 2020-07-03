@@ -26,10 +26,12 @@ const handleAuthentication = (
   token: string,
   userRole: string
 ) => {
+  console.log("handleAuth");
   const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
   const user = new User(userId, email, token, expirationDate, userRole);
   localStorage.setItem('userData', JSON.stringify(user));
 
+  console.log("10");
   return new AuthActions.LoginSuccess ({
     email: email,
     userId: userId,
@@ -42,39 +44,6 @@ const handleAuthentication = (
 
 @Injectable()
 export class AuthEffects {
-
-  @Effect()
-  authLogin = this.actions$.pipe(
-    ofType(AuthActions.LOGIN_START),
-    switchMap((authData: AuthActions.LoginStart) => {
-      return this.http.put<AuthResponseData>(
-        environment.baseUrl + 'auth/auth/login',
-        {
-          username: authData.payload.email,
-          password: authData.payload.password,
-        })
-      .pipe(
-          map(responseData => {
-            return handleAuthentication(+responseData.tokenExpiresIn, responseData.username, responseData.id, responseData.token, responseData.userRole);
-          }),
-          catchError(responseError => {
-            if(responseError.status === 409) {
-              return of(new AuthActions.LoginFail({
-                message: responseError.error,
-                autoLogin: false,
-                redirect: true
-              }));
-            } else {
-              return of(new AuthActions.LoginFail({
-                message: responseError.error,
-                autoLogin: false,
-                redirect: false
-              }));
-            }
-          })
-      );
-    })
-  );
 
   @Effect()
   authSignup = this.actions$.pipe(
@@ -137,9 +106,45 @@ export class AuthEffects {
   );
 
   @Effect()
+  authLogin = this.actions$.pipe(
+    ofType(AuthActions.LOGIN_START),
+    switchMap((authData: AuthActions.LoginStart) => {
+      console.log("login1");
+      return this.http.put<AuthResponseData>(
+        environment.baseUrl + 'auth/auth/login',
+        {
+          username: authData.payload.email,
+          password: authData.payload.password,
+        })
+      .pipe(
+          map(responseData => {
+            console.log("handleLoginAuth");
+            return handleAuthentication(+responseData.tokenExpiresIn, responseData.username, responseData.id, responseData.token, responseData.userRole);
+          }),
+          catchError(responseError => {
+            if(responseError.status === 409) {
+              return of(new AuthActions.LoginFail({
+                message: responseError.error,
+                autoLogin: false,
+                redirect: true
+              }));
+            } else {
+              return of(new AuthActions.LoginFail({
+                message: responseError.error,
+                autoLogin: false,
+                redirect: false
+              }));
+            }
+          })
+      );
+    })
+  );
+
+  @Effect()
   autoLogin = this.actions$.pipe(
     ofType(AuthActions.AUTO_LOGIN),
     map(() => {
+      console.log("1");
       if(localStorage.getItem('userData') !== null) {
         const userData: {
           email: string;
@@ -149,6 +154,7 @@ export class AuthEffects {
           userRole: string
         } = JSON.parse(localStorage.getItem('userData'));
 
+        console.log("2");
         if(userData !== null) {
           const loadedUser = new User(
             userData.email,
@@ -158,7 +164,9 @@ export class AuthEffects {
             userData.userRole
           );
 
+          console.log("3");
           if(loadedUser.token){
+            console.log("4");
             const remainingDuration:number =
                 new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
             this.authService.setLogoutTimer(remainingDuration);
@@ -173,6 +181,7 @@ export class AuthEffects {
           }
         }
       } else {
+        console.log("auto login else");
         return new AuthActions.LoginFail({
           message: "User is not logged in.",
           autoLogin: true,
