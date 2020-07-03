@@ -26,7 +26,6 @@ const handleAuthentication = (
   token: string,
   userRole: string
 ) => {
-  console.log("handleAuth");
   const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
   const user = new User(userId, email, token, expirationDate, userRole);
   localStorage.setItem('userData', JSON.stringify(user));
@@ -118,7 +117,6 @@ export class AuthEffects {
         })
       .pipe(
           map(responseData => {
-            console.log("handleLoginAuth");
             return handleAuthentication(+responseData.tokenExpiresIn, responseData.username, responseData.id, responseData.token, responseData.userRole);
           }),
           catchError(responseError => {
@@ -154,7 +152,6 @@ export class AuthEffects {
           userRole: string
         } = JSON.parse(localStorage.getItem('userData'));
 
-        console.log("2");
         if(userData !== null) {
           const loadedUser = new User(
             userData.email,
@@ -163,8 +160,9 @@ export class AuthEffects {
             new Date(userData._tokenExpirationDate),
             userData.userRole
           );
-
-          console.log("3");
+          console.log("3: " + userData._token);
+          console.log("3: " + loadedUser);
+          console.log("3: " + loadedUser.token);
           if(loadedUser.token){
             console.log("4");
             const remainingDuration:number =

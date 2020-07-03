@@ -41,6 +41,10 @@ export class AuthService {
     });
   }
 
+  public login(body): Observable<any> {
+    return this.http.put(this.baseUrl + 'auth/login', body);
+  }
+
   getToken(): void {
     this.subscriptionUser = this.store.select('auth').subscribe(userData => {
       this.activeUserToken = userData.user.token;

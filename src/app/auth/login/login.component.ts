@@ -6,6 +6,8 @@ import * as moment from 'moment';
 import * as fromApp from '../../store/app.reducer';
 import * as AuthActions from '../store/auth.actions';
 import { Store } from '@ngrx/store';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/shared/user.model';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +22,9 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private store: Store<fromApp.AppState>) { }
+              private store: Store<fromApp.AppState>,
+              private authService: AuthService,
+              private message: NzMessageService) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -51,20 +55,29 @@ export class LoginComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
     console.log(this.validateForm.value.username + " => " + this.validateForm.value.password);
-    this.store.dispatch(new AuthActions.LoginStart({
-      email: this.validateForm.value.username,
-      password: this.validateForm.value.password
-    }));
+    // this.store.dispatch(new AuthActions.LoginStart({
+    //   email: this.validateForm.value.username,
+    //   password: this.validateForm.value.password
+    // }));
 
-    // {
-    //   this.authService.login(this.validateForm.value).subscribe(() => {
-    //     this.router.navigateByUrl(`dashboard`);
-    //   }, error => {
-    //     this.message.info('Bad credentials.');
-    //     this.attempts = this.attempts + 1;
-    //     localStorage.setItem('attempts', this.attempts.toString());
-    //   });
-    // }
+    {
+      this.authService.login(this.validateForm.value).subscribe(user => {
+        this.router.navigateByUrl(`dashboard`);
+        const expirationDate = new Date(new Date().getTime() + user.tokenExpiresIn * 1000);
+        let changedUser = new User(user.id, user.username, user.token, expirationDate, user.userRole);
+        localStorage.setItem('userData', JSON.stringify(changedUser));
+        this.store.dispatch(new AuthActions.LoginSuccess({
+          email: user.username,
+          userId: user.id,
+          token: user.token,
+          expirationDate: expirationDate,
+          userRole: user.userRole,
+          redirect: false
+        }));
+      }, error => {
+        this.message.info('Bad credentials.');
+      });
+    }
   }
 
   onRegistration() {

@@ -21,6 +21,7 @@ import { LimitRedirectComponent } from './auth/limit-redirect/limit-redirect.com
 import { LoginComponent } from './auth/login/login.component';
 import { RegistrationComponent } from './auth/registration/registration.component';
 import { AuthEffects } from './auth/store/auth.effects';
+import { CartEffects } from './cart/store/cart.effects';
 import { AdCardComponent } from './pages/ad-card/ad-card.component';
 import { AgentRentComponent } from './pages/ad/agent-rent/agent-rent.component';
 import { CreateAdComponent } from './pages/ad/create-ad/create-ad.component';
@@ -32,18 +33,17 @@ import { FuelTypeComponent } from './pages/create-forms/fuel-type/fuel-type.comp
 import { GearshiftTypeComponent } from './pages/create-forms/gearshift-type/gearshift-type.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AdDetailsComponent } from './pages/details/ad-details/ad-details.component';
+import { CarBrandsComponent } from './pages/lists/car-brands/car-brands.component';
+import { CarClassesComponent } from './pages/lists/car-classes/car-classes.component';
+import { CarModelsComponent } from './pages/lists/car-models/car-models.component';
+import { FuelTypesComponent } from './pages/lists/fuel-types/fuel-types.component';
+import { GearshiftTypesComponent } from './pages/lists/gearshift-types/gearshift-types.component';
+import { PendingCommentsComponent } from './pages/lists/pending-comments/pending-comments.component';
 import { AgentRequestsComponent } from './pages/request/agent-requests/agent-requests.component';
 import { SimpleUserRequestsComponent } from './pages/request/simple-user-requests/simple-user-requests.component';
 import { ReservationsComponent } from './pages/reservations/reservations.component';
 import { LightSearchComponent } from './pages/search-forms/light-search/light-search.component';
 import * as fromApp from './store/app.reducer';
-import { CarBrandsComponent } from './pages/lists/car-brands/car-brands.component';
-import { CarClassesComponent } from './pages/lists/car-classes/car-classes.component';
-import { CarModelsComponent } from './pages/lists/car-models/car-models.component';
-import { GearshiftTypesComponent } from './pages/lists/gearshift-types/gearshift-types.component';
-import { FuelTypesComponent } from './pages/lists/fuel-types/fuel-types.component';
-import { AdsWhichNeedReportComponent } from './pages/lists/ads-which-need-report/ads-which-need-report.component';
-import { PendingCommentsComponent } from './pages/lists/pending-comments/pending-comments.component';
 
 registerLocaleData(en);
 
@@ -96,7 +96,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     CommonModule,
     StoreModule.forRoot(fromApp.appReducer),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
-    EffectsModule.forRoot([AuthEffects])
+    EffectsModule.forRoot([AuthEffects, CartEffects])
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }, { provide: NZ_ICON_DEFAULT_TWOTONE_COLOR, useValue: '#00ff00' },
   { provide: NZ_ICONS, useValue: icons }],
