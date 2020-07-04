@@ -36,12 +36,7 @@ export class RegistrationRequestService {
   }
 
   public approveRegistrationRequest(body): Observable<any> {
-    this.getToken();
-    return this.http.put(this.baseUrl + `auth/approve-registration-request`, body, {
-      headers: new HttpHeaders ({
-        'Auth-Token' : this.activeUserToken
-      })
-    });
+    return this.http.put(this.baseUrl + `auth/approve-registration-request`, body);
   }
 
   public denyRegistrationRequest(body): Observable<any> {

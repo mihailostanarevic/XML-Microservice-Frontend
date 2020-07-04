@@ -25,10 +25,12 @@ import { GearshiftTypeComponent } from './pages/create-forms/gearshift-type/gear
 import { FuelTypeComponent } from './pages/create-forms/fuel-type/fuel-type.component';
 import { PendingCommentsComponent } from './pages/lists/pending-comments/pending-comments.component';
 import { RolesComponent } from './pages/admin/roles/roles.component';
+import { RegistrationRequestComponent } from './registration-request/registration-request.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/auth/login' },
   { path: 'auth/login', component: LoginComponent },
+  { path: 'auth/login/:id/simple-user', component: LoginComponent },
   { path: 'auth/registration', component: RegistrationComponent},
   { path: 'auth/limit-redirect', component: LimitRedirectComponent},
 
@@ -55,7 +57,8 @@ const routes: Routes = [
       { path: ':id/car-brand', component: CarBrandComponent},
       { path: ':id/car-class', component: CarClassComponent},
       { path: 'pending-comments', component: PendingCommentsComponent},
-      { path: 'admin-role-list', component: RolesComponent}
+      { path: 'admin-role-list', component: RolesComponent},
+      { path: 'pending-registrations', component: RegistrationRequestComponent}
     ],
 
   },

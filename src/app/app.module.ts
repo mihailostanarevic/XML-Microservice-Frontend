@@ -45,6 +45,7 @@ import { ReservationsComponent } from './pages/reservations/reservations.compone
 import { LightSearchComponent } from './pages/search-forms/light-search/light-search.component';
 import * as fromApp from './store/app.reducer';
 import { RolesComponent } from './pages/admin/roles/roles.component';
+import { RegistrationRequestComponent } from './registration-request/registration-request.component';
 
 registerLocaleData(en);
 
@@ -83,6 +84,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     // AdsWhichNeedReportComponent,
     PendingCommentsComponent,
     RolesComponent
+    RegistrationRequestComponent,
   ],
   imports: [
     BrowserModule,

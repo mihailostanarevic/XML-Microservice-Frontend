@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-registration',
@@ -43,7 +44,8 @@ export class RegistrationComponent implements OnInit {
 
     {
       this.authService.registerSimpleUser(this.validateForm.value).subscribe(() => {
-        console.log(this.validateForm.value);
+        this.message.info('You have successfully sent registration request.');
+        this.router.navigateByUrl('auth/login');
       }
         , error => {
         this.message.info('Please check your data again. You have entered pre-existing data.');
