@@ -47,6 +47,24 @@ export class UserService {
     });
   }
 
+  getUsersAll(): Observable<any> {
+    this.getToken();
+    return this.http.get(this.baseUrl + `auth/auth/users/all`,{
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
+  }
+
+  deleteRole(userId, roleId): Observable<any> {
+    this.getToken();
+    return this.http.delete(this.baseUrl + `auth/auth/users/`+userId+`/roles/`+roleId,{
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
+  }
+
   getToken(): void {
     this.subscriptionUser = this.store.select('auth').subscribe(userData => {
       this.activeUserToken = userData.user.token;

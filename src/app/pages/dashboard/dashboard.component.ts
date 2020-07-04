@@ -122,4 +122,8 @@ export class DashboardComponent implements OnInit {
   reservations(): void {
     this.router.navigateByUrl('dashboard/reservations');
   }
+
+  adminRoleList(): void {
+    this.router.navigateByUrl('dashboard/admin-role-list');
+  }
 }
