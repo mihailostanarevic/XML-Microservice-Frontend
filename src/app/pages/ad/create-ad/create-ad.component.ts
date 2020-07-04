@@ -17,7 +17,8 @@ import { HttpClient } from '@angular/common/http';
 export class CreateAdComponent implements OnInit {
 
   isLimitedDistance = true;     // limitedDistance
-  isCDW = true;     // cdw
+  isCDW;     // cdw
+  isSimpleUser = false;
   availableKilometers?: string;    //Basic usage1
   kilometersTraveled?: string;    //Basic usage2
   @ViewChild('inputElement', { static: false }) inputElement?: ElementRef;
@@ -54,6 +55,13 @@ export class CreateAdComponent implements OnInit {
     this.setupCarModelList();
     this.setupGearshiftType();
     this.setupFuelTypeList();
+    let userRole: string;
+    this.store.select("auth").subscribe(authData => {
+        userRole = authData.user.userRole;
+    });
+    if(userRole === "SIMPLE_USER_ROLE") {
+      this.isSimpleUser = true;
+    }
   }
 
   selectedHandle = 'Manuel';
@@ -183,8 +191,6 @@ export class CreateAdComponent implements OnInit {
         agentId = authData.user.id;
     });
 
-console.log(this.selectedHandle + ", " + this.selectedGearNumber);
-
     // image & user
     var formData = new FormData();
     this.fileList2.forEach(element => {
@@ -199,14 +205,15 @@ console.log(this.selectedHandle + ", " + this.selectedGearNumber);
       'availableKilometersPerRent': this.availableKilometers,
       'kilometersTraveled': this.kilometersTraveled,
       'seats': this.value,
-      'cdw': this.isCDW
+      'cdw': false,
+      'simpleUser': this.isSimpleUser
     })], {
         type: "application/json"
     }));
     this.adService.postAd(formData).subscribe(() => {
       this.message.info('Successfully created!');
     }, error => {
-        console.log(error.error.message);
+        console.log(error);
         this.message.info('Something was wrong.');
     });
   }
