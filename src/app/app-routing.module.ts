@@ -24,8 +24,8 @@ import { CarModelComponent } from './pages/create-forms/car-model/car-model.comp
 import { GearshiftTypeComponent } from './pages/create-forms/gearshift-type/gearshift-type.component';
 import { FuelTypeComponent } from './pages/create-forms/fuel-type/fuel-type.component';
 import { PendingCommentsComponent } from './pages/lists/pending-comments/pending-comments.component';
+import { RolesComponent } from './pages/admin/roles/roles.component';
 import { RegistrationRequestComponent } from './registration-request/registration-request.component';
-
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/auth/login' },
@@ -36,7 +36,7 @@ const routes: Routes = [
 
   {
     path: 'dashboard', component: DashboardComponent, children: [
-      {path: 'regular-search', component: LightSearchComponent},
+      { path: 'regular-search', component: LightSearchComponent},
       { path: 'agent-rent', component: AgentRentComponent},
       { path: 'create-ad', component: CreateAdComponent},
       { path: 'cart', component: CartComponent},
@@ -57,7 +57,8 @@ const routes: Routes = [
       { path: ':id/car-brand', component: CarBrandComponent},
       { path: ':id/car-class', component: CarClassComponent},
       { path: 'pending-comments', component: PendingCommentsComponent},
-      { path: 'pending-registrations', component: RegistrationRequestComponent},
+      { path: 'admin-role-list', component: RolesComponent},
+      { path: 'pending-registrations', component: RegistrationRequestComponent}
     ],
 
   },

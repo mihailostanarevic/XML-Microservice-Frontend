@@ -1,0 +1,14 @@
+p {
+  margin: 0;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  cursor: pointer;
+}
+p:hover {
+  font-weight: bold;
+  color: red;
+}
+nz-card {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

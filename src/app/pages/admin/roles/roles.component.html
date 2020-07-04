@@ -1,0 +1,11 @@
+<div style="background: transparent;padding:30px;">
+  <div nz-row [nzGutter]="8">
+    <div nz-col [nzSpan]="8" *ngFor="let user of userList">
+      <nz-card nzTitle="{{ user.name }} ({{ user.username }})"
+        style="text-align: center;">
+        <p *ngFor="let role of user.roleList"
+          (click)="deleteRole(user.id, role.id, role.name, role.permissionList)"> {{ role.name }} </p>
+      </nz-card>
+    </div>
+  </div>
+</div>

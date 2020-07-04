@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../../../store/app.reducer';
 
 
 @Component({
@@ -28,8 +30,13 @@ export class LightSearchComponent implements OnInit {
   searchResults: Object[];
   page:string = '"search"';
   isVisible:boolean;
+  userID: string;
 
-  constructor(private router: Router, private searchService: SearchService, private message: NzMessageService, private fb: FormBuilder) {}
+  constructor(private router: Router,
+    private searchService: SearchService,
+    private message: NzMessageService,
+    private fb: FormBuilder,
+    private store: Store<fromApp.AppState>) {}
 
   ngOnInit(): void {
     this.showResults = false;
@@ -41,13 +48,17 @@ export class LightSearchComponent implements OnInit {
       from : "",
       to: ""
     }
-    
+
     this.validateForm = this.fb.group({
       city: [null, [Validators.required]],
       dates: [null, [Validators.required]]
     });
-    
+
     this.searchResults = [];
+
+    this.store.select('auth').subscribe(authData => {
+      this.userID = authData.user.id;
+    });
   }
 
   onChange(result: Date[]): void {
@@ -82,7 +93,12 @@ export class LightSearchComponent implements OnInit {
     this.searchService.lightSearch(data).subscribe(data => {
       this.showResults = true;
       this.isVisible = false;
-      this.searchResults = data;
+      // this.searchResults = data;
+      data.forEach(searchResult => {
+        if(this.userID !== searchResult.agent.simpleUserID) {
+          this.searchResults.push(searchResult);
+        }
+      });
       if(data.length > 0){
         for(let result of data){
           let date = new Date(result.ad.creationDate[0],result.ad.creationDate[1],result.ad.creationDate[2]);

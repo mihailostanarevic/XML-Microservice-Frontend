@@ -16,6 +16,9 @@
             title="Shopping Cart"
             (click)="showCart()">
         </li>
+        <li *ngIf="isAdmin"
+          nz-menu-item style="float: left;"
+          (click)="adminRoleList()">Role List</li>
         <li nz-menu-item *ngIf="isAdmin" (click)="registrationRequests()">Registration requests</li>
         <li nz-menu-item *ngIf="isAdmin" (click)="commentRequests()">Comment requests</li>
         <li nz-menu-item (click)="logout()" style="float: right;">Log out</li>
@@ -60,6 +63,7 @@
               <li (click)="changeAvailability()" nz-menu-item>Agent ads</li>
             </ul>
           </li>
+          <li *ngIf="isSimpleUser" (click)="simpleUserCreateAd()" nz-menu-item>Create Ad</li>
           <li *ngIf="isAgent" (click)="agentRequests()" nz-menu-item>Requests</li>
           <li *ngIf="isSimpleUser" (click)="simpleUserRequests()" nz-menu-item>Requests</li>
         </ul>

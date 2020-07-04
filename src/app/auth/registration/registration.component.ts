@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
+import { AuthService } from './../../services/auth.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -15,7 +16,10 @@ export class RegistrationComponent implements OnInit {
   isValid: boolean;
   htmlTagRegExp = '^(?!<.+?>).*$';
 
-  constructor(private message: NzMessageService, private fb: FormBuilder, private router: Router, private authService: AuthService) {}
+  constructor(private message: NzMessageService,
+    private fb: FormBuilder,
+    private router: Router,
+    private authService: AuthService) {}
 
   ngOnInit(): void {
     this.isValid = true;
