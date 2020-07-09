@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromApp from "../../store/app.reducer";
-import { User } from 'src/app/shared/user.model';
-import { MessageService } from 'src/app/services/message.service';
-import { CarAccessory } from 'src/app/shared/carAccessory.model';
+import { User } from '../../shared/user.model';
+import { MessageService } from '../../services/message.service';
+import { CarAccessory } from '../../shared/carAccessory.model';
 
 @Component({
   selector: 'app-messages',
