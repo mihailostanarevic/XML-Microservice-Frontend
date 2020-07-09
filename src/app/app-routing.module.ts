@@ -26,6 +26,7 @@ import { FuelTypeComponent } from './pages/create-forms/fuel-type/fuel-type.comp
 import { PendingCommentsComponent } from './pages/lists/pending-comments/pending-comments.component';
 import { RolesComponent } from './pages/admin/roles/roles.component';
 import { RegistrationRequestComponent } from './registration-request/registration-request.component';
+import { MessagesComponent } from './pages/messages/messages.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/auth/login' },
@@ -58,7 +59,8 @@ const routes: Routes = [
       { path: ':id/car-class', component: CarClassComponent},
       { path: 'pending-comments', component: PendingCommentsComponent},
       { path: 'admin-role-list', component: RolesComponent},
-      { path: 'pending-registrations', component: RegistrationRequestComponent}
+      { path: 'pending-registrations', component: RegistrationRequestComponent},
+      { path: 'messages', component: MessagesComponent}
     ],
 
   },

@@ -26,7 +26,8 @@ export class LoginComponent implements OnInit {
               private store: Store<fromApp.AppState>,
               private authService: AuthService,
               private message: NzMessageService,
-              private registrationRequestService: RegistrationRequestService) { }
+              private registrationRequestService: RegistrationRequestService,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({

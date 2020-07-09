@@ -134,4 +134,8 @@ export class DashboardComponent implements OnInit {
   simpleUserCreateAd(): void {
     this.router.navigateByUrl('dashboard/create-ad');
   }
+
+  inbox(): void {
+    this.router.navigateByUrl('dashboard/messages');
+  }
 }

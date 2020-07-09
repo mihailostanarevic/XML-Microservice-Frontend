@@ -71,23 +71,25 @@ export class AdDetailsComponent implements OnInit {
     this.childrenVisible = false;
     this.carService.getCarAccessories(this.currentAd.car.carID).subscribe(data => {
       this.carAccessories = data;
-    })
 
-    this.carAccessoriesService.getAllAccessories().subscribe(data => {
-      for (let item of data) {
-        let found = false;
-        this.carAccessories.forEach(carAccessory => {
-          if (carAccessory["id"] === item["id"]) {
-            found = true;
+      this.carAccessoriesService.getAllAccessories().subscribe(data => {
+        for (let item of data) {
+          let found = false;
+          this.carAccessories.forEach(carAccessory => {
+            if (carAccessory.id === item["id"]) {
+              found = true;
+            }
+          })
+  
+          if (!found) {
+            let ca: CarAccessory = new CarAccessory(item["id"], null, item["description"]);
+            this.possibleAccessories.push(ca);
           }
-        })
-
-        if (!found) {
-          let ca: CarAccessory = new CarAccessory(item["id"], null, item["description"]);
-          this.possibleAccessories.push(ca);
         }
-      }
+      })
     })
+
+    
   }
 
   open(): void {
@@ -135,24 +137,27 @@ export class AdDetailsComponent implements OnInit {
 
   sendMessage(): void {
 
-    // this.store.select("auth").subscribe(authData => {
-    //   console.log(authData.user.id);
-    //   this.userID = authData.user.id;
-    // });
+    
 
     let list: string[] = [];
     this.selectedCarAccessories.forEach(accessory => {
       list.push(accessory.id);
     })
-    const body = {
-      text: this.text,
-      sender: this.userID,
-      receiver: this.currentAd.agent.agentID,
-      ad: this.currentAd.ad.adID,
-      accessories: list
-    }
 
-    this.messageService.sendMessage(body).subscribe(data => { });
+    this.store.select("auth").subscribe(authData => {
+      console.log(authData.user.id);
+      this.userID = authData.user.id;
+
+      const body = {
+        text: this.text,
+        sender: this.userID,
+        receiver: this.currentAd.agent.agentID,
+        ad: this.currentAd.ad.adID,
+        accessories: list
+      }
+
+      this.messageService.sendMessage(body).subscribe(data => { });
+    });
   }
 
   addToCart(): void {
