@@ -17,7 +17,7 @@
             </nz-descriptions-item>
             <nz-descriptions-item nzTitle="No. of child seats">{{currentAd.ad.seats}}</nz-descriptions-item>
             <nz-descriptions-item nzTitle="Limited distance?">
-              {{currentAd.ad.limitedDistance ? "Broj kilometara, dodacu" : "UNLIMITED"}}</nz-descriptions-item>
+              {{ currentAd.ad.limitedDistance == false ? currentAd.ad.distance + " kms" : "UNLIMITED"}}</nz-descriptions-item>
             <nz-descriptions-item nzTitle="Agent Info">
               Agent name: {{currentAd.agent.agentName}}
               <br />

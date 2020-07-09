@@ -46,6 +46,7 @@ import { LightSearchComponent } from './pages/search-forms/light-search/light-se
 import * as fromApp from './store/app.reducer';
 import { RolesComponent } from './pages/admin/roles/roles.component';
 import { RegistrationRequestComponent } from './registration-request/registration-request.component';
+import { MessagesComponent } from './pages/messages/messages.component';
 
 registerLocaleData(en);
 
@@ -83,8 +84,9 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     SimpleUserRequestsComponent,
     // AdsWhichNeedReportComponent,
     PendingCommentsComponent,
-    RolesComponent
+    RolesComponent,
     RegistrationRequestComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,

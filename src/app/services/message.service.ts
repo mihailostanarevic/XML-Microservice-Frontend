@@ -19,7 +19,7 @@ export class MessageService {
 
   sendMessage(body): Observable<any>{
     this.getToken();
-    return this.http.post(this.baseUrl + "messages", body, {
+    return this.http.post(this.baseUrl + "/ad/messages", body, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })
@@ -32,7 +32,7 @@ export class MessageService {
     let queryParams = {
       params: new HttpParams().set("receiver", id).set("sender", idSender)
     }
-    return this.http.get(this.baseUrl + "messages?receiver="+id+"&sender="+idSender, {
+    return this.http.get(this.baseUrl + "ads/messages?receiver="+id+"&sender="+idSender, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })
@@ -41,7 +41,7 @@ export class MessageService {
 
   approveDenyAccessory(body): Observable<any> {
     this.getToken();
-    return this.http.put(this.baseUrl + 'message-car-accessories', body, {
+    return this.http.put(this.baseUrl + 'ads/message-car-accessories', body, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })
@@ -54,7 +54,7 @@ export class MessageService {
     let body = {
       seen: true
     }
-    return this.http.put(this.baseUrl + `message/${id}`, body, {
+    return this.http.put(this.baseUrl + `ads/messages/${id}`, body, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })

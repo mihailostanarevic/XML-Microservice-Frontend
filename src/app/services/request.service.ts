@@ -35,6 +35,15 @@ export class RequestService {
     });
   }
 
+  public getRequestsByUser(id): Observable<any> {
+    this.getToken();
+    return this.http.get(this.baseUrl + 'rent/request/user/'+id+'?status=RESERVED', {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
+  }
+
   public getAgentRequests(body): Observable<any> {
     this.getToken();
     return this.http.get(this.baseUrl + 'rent/request/agent/'+body.id+'/requests/'+body.requestStatus, {
