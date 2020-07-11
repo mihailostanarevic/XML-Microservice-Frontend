@@ -93,6 +93,15 @@ export class CarModelService {
     return filterQuery;
   }
 
+  getCarModelsByBrand(id): Observable<any> {
+    this.getToken();
+    return this.http.get(this.baseUrl + `ad/car-models/car-brand/${id}`, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
+  }
+
   getToken(): void {
     this.subscriptionUser = this.store.select('auth').subscribe(userData => {
       this.activeUserToken = userData.user.token;
