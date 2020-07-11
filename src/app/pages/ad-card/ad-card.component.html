@@ -1,31 +1,44 @@
 <ng-template #actionInfo>
-  <i nz-icon nz-tooltip nzTooltipTitle="See informations" (click)="seeInfo(result)" nzType="info-circle" nzTheme="outline"></i>
+  <i nz-icon nz-tooltip nzTooltipTitle="See informations" (click)="seeInfo(result)" nzType="info-circle"
+    nzTheme="outline"></i>
 </ng-template>
 <ng-template #actionShopping>
   <i nz-icon nz-tooltip nzTooltipTitle="Reserve now" nzType="carry-out" nzTheme="fill"></i>
 </ng-template>
 <ng-template #commenting>
-  <i nz-icon nz-tooltip nzType="comment" (click)="comment(result.ad.adID)" nzTooltipTitle="Comment" nzTheme="outline"></i>
+  <i nz-icon nz-tooltip nzType="comment" (click)="comment(result.ad.adID)" nzTooltipTitle="Comment"
+    nzTheme="outline"></i>
 </ng-template>
 <ng-template #rating>
   <i nz-icon nz-tooltip nzType="project" (click)="rate(result.ad.adID)" nzTooltipTitle="Rate ad" nzTheme="outline"></i>
 </ng-template>
 <ng-template #actionMessages>
-  <i nz-icon nz-tooltip nzType="message" (click)="seeMessages(result)" nzTooltipTitle="See messages" nzTheme="outline"></i>
+  <i nz-icon nz-tooltip nzType="message" (click)="seeMessages(result)" nzTooltipTitle="See messages"
+    nzTheme="outline"></i>
 </ng-template>
 
 <nz-card [nzActions]="[actionInfo, actionShopping, commenting, rating]" [nzHoverable]="true" *ngIf="page === 'search'">
   <nz-descriptions nzLayout="horizontal">
-  <nz-descriptions-item nzTitle="Name of issuer">{{result.agent.agentName}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Name of issuer">{{result.agent.agentName}}</nz-descriptions-item>
   </nz-descriptions>
   <nz-descriptions nzLayout="horizontal">
-  <nz-descriptions-item style="margin-left: 20px;" nzTitle="Car details">{{result.car.carBrandName}}&nbsp;{{result.car.carModelName}}, {{result.car.carClassName}}</nz-descriptions-item>
+    <nz-descriptions-item style="margin-left: 20px;" nzTitle="Car details">
+      {{result.car.carBrandName}}&nbsp;{{result.car.carModelName}}, {{result.car.carClassName}}</nz-descriptions-item>
   </nz-descriptions>
   <nz-descriptions nzLayout="horizontal">
-  <nz-descriptions-item nzTitle="Location">{{result.agent.locations}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Location">{{result.agent.locations}}</nz-descriptions-item>
   </nz-descriptions>
   <nz-descriptions nzLayout="horizontal">
-  <nz-descriptions-item style="margin-left: 20px;" nzTitle="Date issued">{{result.ad.formattedDate}}</nz-descriptions-item>
+    <nz-descriptions-item style="margin-left: 20px;" nzTitle="Average rating">{{result.ad.avgRating}}
+    </nz-descriptions-item>
+  </nz-descriptions>
+  <nz-descriptions nzLayout="horizontal">
+    <nz-descriptions-item style="margin-left: 20px;" nzTitle="Kilometers traveled">{{result.car.kilometersTraveled}}
+    </nz-descriptions-item>
+  </nz-descriptions>
+  <nz-descriptions nzLayout="horizontal">
+    <nz-descriptions-item style="margin-left: 20px;" nzTitle="Date issued">{{result.ad.formattedDate}}
+    </nz-descriptions-item>
   </nz-descriptions>
 </nz-card>
 <br *ngIf="commentFlag" />
@@ -34,13 +47,13 @@
   <thead>
     <tr>
       <th nzCustomFilter>
-          User
+        User
       </th>
       <th>
         Agent
       </th>
       <th>
-          Comment
+        Comment
       </th>
     </tr>
   </thead>
@@ -62,24 +75,27 @@
 <!-- <br *ngIf="rateFlag" /> -->
 <br *ngIf="rateFlag" />
 <nz-rate *ngIf="rateFlag" [(ngModel)]="rateModel" [nzTooltips]="tooltips"></nz-rate>
-<button *ngIf="rateFlag" (click)="confirmRate(result.ad.adID)" style="margin-left: 25px;" nz-button nzType="primary">Confirm</button>
+<button *ngIf="rateFlag" (click)="confirmRate(result.ad.adID)" style="margin-left: 25px;" nz-button
+  nzType="primary">Confirm</button>
 
-<nz-card [nzActions]="[actionInfo, commenting, rating, actionMessages]" [nzHoverable]="true" *ngIf="page === 'reservations'">
+<nz-card [nzActions]="[actionInfo, commenting, rating, actionMessages]" [nzHoverable]="true"
+  *ngIf="page === 'reservations'">
   <nz-descriptions nzLayout="horizontal">
-  <nz-descriptions-item nzTitle="Name of issuer">{{result.agent.agentName}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Name of issuer">{{result.agent.agentName}}</nz-descriptions-item>
   </nz-descriptions>
   <nz-descriptions nzLayout="horizontal">
-  <nz-descriptions-item style="margin-left: 20px;" nzTitle="Car details">{{result.car.carBrandName}}&nbsp;{{result.car.carModelName}}, {{result.car.carClassName}}</nz-descriptions-item>
+    <nz-descriptions-item style="margin-left: 20px;" nzTitle="Car details">
+      {{result.car.carBrandName}}&nbsp;{{result.car.carModelName}}, {{result.car.carClassName}}</nz-descriptions-item>
   </nz-descriptions>
   <nz-descriptions nzLayout="horizontal">
-  <nz-descriptions-item nzTitle="Location">{{result.agent.locations}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Location">{{result.agent.locations}}</nz-descriptions-item>
   </nz-descriptions>
   <nz-descriptions nzLayout="horizontal">
-  <nz-descriptions-item style="margin-left: 20px;" nzTitle="Date issued">{{result.ad.formattedDate}}</nz-descriptions-item>
+    <nz-descriptions-item style="margin-left: 20px;" nzTitle="Date issued">{{result.ad.formattedDate}}
+    </nz-descriptions-item>
   </nz-descriptions>
   <nz-descriptions nzLayout="horizontal" *ngIf="page === 'reservations'">
-      <nz-descriptions-item style="margin-left: 20px;" nzTitle="Your reservation date">From {{result.dateFrom}} {{result.timeFrom}} - to {{result.dateTo}} {{result.timeTo}}</nz-descriptions-item>
+    <nz-descriptions-item style="margin-left: 20px;" nzTitle="Your reservation date">From {{result.dateFrom}}
+      {{result.timeFrom}} - to {{result.dateTo}} {{result.timeTo}}</nz-descriptions-item>
   </nz-descriptions>
 </nz-card>
-
-

@@ -1,0 +1,79 @@
+<div class="inputWrapper2" *ngIf="!showResults">
+        <nz-form-item>
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a car brand" (ngModelChange)="carBrandChanged($event)" style="width: 300px;" [ngModel]="selectedCarBrand">
+                <nz-option *ngFor="let carBrand of allCarBrands" [nzValue]="carBrand" [nzLabel]="carBrand.name">
+                </nz-option>
+            </nz-select>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a car model" style="width: 300px;" (ngModelChange)="carModelChanged($event)" [ngModel]="selectedCarModel">
+                <nz-option *ngFor="let carModel of allCarModels" [nzValue]="carModel" [nzLabel]="carModel.name">
+                </nz-option>
+            </nz-select>
+        </nz-form-item>
+
+        <nz-form-control>
+            <nz-form-item>
+                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a fuel type" style="width: 300px;" (ngModelChange)="fuelTypeChanged($event)" [ngModel]="selectedFuelType">
+                    <nz-option *ngFor="let fuelType of allFuelTypes" [nzValue]="fuelType" [nzLabel]="fuelType">
+                    </nz-option>
+                </nz-select>
+            </nz-form-item>
+        </nz-form-control>
+
+        <nz-form-item>
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a gearshift type" style="width: 300px;" (ngModelChange)="gearshiftTypeChanged($event)" [ngModel]="selectedGearshiftType">
+                <nz-option *ngFor="let gearshiftType of allGearshiftTypes" [nzValue]="gearshiftType" [nzLabel]="gearshiftType">
+                </nz-option>
+            </nz-select>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a car class" style="width: 300px;" (ngModelChange)="carClassChanged($event)" [ngModel]="selectedCarClass">
+                <nz-option *ngFor="let carClass of allCarClasses" [nzValue]="carClass" [nzLabel]="carClass.name">
+                </nz-option>
+            </nz-select>
+        </nz-form-item>
+
+    <form nz-form [formGroup]="validateForm" class="login-form">
+        <nz-form-control>
+            <nz-input-group>
+                <nz-form-item>
+                    <input style="width: 300px;" formControlName="priceFrom" nz-input placeholder="Price from"/>
+                </nz-form-item>
+            </nz-input-group>
+        </nz-form-control>
+
+        <nz-form-control>
+            <nz-input-group>
+                <nz-form-item>
+                    <input style="width: 300px" formControlName="priceTo" nz-input placeholder="Price to" />
+                </nz-form-item>
+            </nz-input-group>
+        </nz-form-control>
+        
+        <nz-form-control>
+            <nz-form-item>
+                <nz-input-group>
+                    <input style="width: 300px;" formControlName="estimatedDistance" nz-input
+                        placeholder="Estimate of traveled kms"/>
+                </nz-input-group>
+            </nz-form-item>
+        </nz-form-control>
+        
+        <nz-form-control>
+            <nz-form-item>
+                <nz-input-group>
+                    <input style="width: 300px;" formControlName="childrenSeats" nz-input placeholder="No. of child seats"/>
+                </nz-input-group>
+            </nz-form-item>
+        </nz-form-control>
+    </form>
+
+    <nz-form-item>
+        <label nz-checkbox [(ngModel)]="cdw" ><span style="color: black;">Collision damage waiver</span></label>
+    </nz-form-item>
+
+    <!-- <button nz-button (click)="submitAdvancedSearch()" nzType="primary" [disabled]="!validateForm.valid">Search</button> -->
+</div>

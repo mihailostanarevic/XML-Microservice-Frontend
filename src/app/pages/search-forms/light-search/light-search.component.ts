@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SearchService } from '../../../services/search.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../../store/app.reducer';
+import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
 
 
 @Component({
@@ -21,16 +22,20 @@ import * as fromApp from '../../../store/app.reducer';
   styleUrls: ['./light-search.component.css']
 })
 export class LightSearchComponent implements OnInit {
+  @ViewChild(AdvancedSearchComponent) child: AdvancedSearchComponent;
   city: String;
   dateFrom : Date;
   dateTo : Date;
   dates: Object;
   validateForm: FormGroup;
   showResults: Boolean;
-  searchResults: Object[];
-  page:string = '"search"';
+  searchResults: Object[] = [];
+  page:string = 'search';
   isVisible:boolean;
+  opened: boolean;
   userID: string;
+  param1: 'price';
+  parameter: '';
 
   constructor(private router: Router,
     private searchService: SearchService,
@@ -78,40 +83,53 @@ export class LightSearchComponent implements OnInit {
     }
   }
 
-  submitSearch(): void {
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
-    }
-
-    let data = {
-      city: this.city,
-      from: this.dates["from"],
-      to: this.dates["to"]
-    }
-
-    this.searchService.lightSearch(data).subscribe(data => {
-      this.showResults = true;
-      this.isVisible = false;
-      // this.searchResults = data;
-      data.forEach(searchResult => {
-        if(this.userID !== searchResult.agent.simpleUserID) {
-          this.searchResults.push(searchResult);
-        }
-      });
-      if(data.length > 0){
-        for(let result of data){
-          let date = new Date(result.ad.creationDate[0],result.ad.creationDate[1],result.ad.creationDate[2]);
-          result.ad["formattedDate"]= date.toString().substring(0,15);
-        }
-        this.message.info('Your search came back with ' + data.length + ' results');
+  async submitSearch(): Promise<any> {
+    if(this.opened){
+      await this.child.submitAdvancedSearch();
+      this.searchResults = JSON.parse(localStorage.getItem("advanced-search"));
+      console.log(this.searchResults);
+      if(this.searchResults.length > 0){
+        this.message.info('Your search came back with ' + this.searchResults.length + ' results');
       }else {
         this.message.info('Unfortunately our search found 0 results for your search, try again with new parameters');
       }
-    })
+      this.showResults = true;
+    }else {
+      for (const i in this.validateForm.controls) {
+        this.validateForm.controls[i].markAsDirty();
+        this.validateForm.controls[i].updateValueAndValidity();
+      }
+
+      let data = {
+        city: this.city,
+        from: this.dates["from"],
+        to: this.dates["to"]
+      }
+
+      this.searchService.lightSearch(data).subscribe(data => {
+        this.showResults = true;
+        this.isVisible = false;
+        // this.searchResults = data;
+        data.forEach(searchResult => {
+          if(this.userID !== searchResult.agent.simpleUserID) {
+            this.searchResults.push(searchResult);
+          }
+        });
+        if(data.length > 0){
+          for(let result of data){
+            let date = new Date(result.ad.creationDate.split("-")[0],parseInt(result.ad.creationDate.split("-")[1])-1,result.ad.creationDate.split("-")[2]);
+            result.ad["formattedDate"]= date.toString().substring(0,15);
+          }
+          this.message.info('Your search came back with ' + data.length + ' results');
+        }else {
+          this.message.info('Unfortunately our search found 0 results for your search, try again with new parameters');
+        }
+      })
+    }
   }
 
   backToSearch() : void {
+    this.searchResults = [];
     this.isVisible = true;
     this.showResults = false;
   }
@@ -131,4 +149,18 @@ export class LightSearchComponent implements OnInit {
     this.showResults = false;
   }
 
+  sort($event){
+    let parameter: string = $event;
+    if(parameter == 'price'){
+      this.searchResults.sort(function(a:any, b:any){return b.ad.price1day - a.ad.price1day;});
+    }else if(parameter == 'rating'){
+      this.searchResults.sort(function(a:any, b:any){return b.ad.avgRating - a.ad.avgRating;});
+    }else {
+      this.searchResults.sort(function(a:any, b:any){return b.car.kilometersTraveled - a.car.kilometersTraveled;});
+    }
+  }
+
+  toggleCollapse() : void {
+    this.opened = !this.opened;
+  }
 }

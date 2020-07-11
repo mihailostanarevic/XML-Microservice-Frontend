@@ -2,7 +2,10 @@
     <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"
         (nzOnCancel)="handleCancel()">
         <ng-template #modalTitle>
-            Search rentals
+            <span style="font-size: 2rem;">Search rentals</span>
+            <div class="row" style="float: right; padding-right: 50px;">
+                <button nz-button nzType="link" (click)="toggleCollapse()" nzType="primary"><span *ngIf="!opened">Show advanced filters</span><span *ngIf="opened">Close advanced filters</span></button>
+            </div>
         </ng-template>
 
         <ng-template #modalContent>
@@ -29,6 +32,8 @@
                     </nz-input-group>
                 </nz-form-control>
             </form>
+
+            <app-advanced-search-form *ngIf="opened" [city]="city" [dates]="dates"></app-advanced-search-form>
         </ng-template>
 
         <ng-template #modalFooter>
@@ -42,6 +47,12 @@
 <div *ngIf="showResults">
     <button nz-button nzType="primary" (click)="backToSearch()" style="margin-left: 18px;margin-bottom: 30px"><i nz-icon
         nzType="search" nzTheme="outline"></i>Search again</button>
+
+    <nz-select *ngIf="searchResults.length > 0" nzShowSearch nzAllowClear nzPlaceHolder="Sort by" style="width: 200px; float: right; margin-left: 200px" (ngModelChange)="sort($event)" [(ngModel)]="parameter">
+        <nz-option nzValue="price" nzLabel="Price"><i nz-icon nzType="money-collect" nzTheme="twotone"></i></nz-option>
+        <nz-option nzValue="rating" nzLabel="Rating"><i nz-icon nzType="star" nzTheme="twotone"></i></nz-option>
+        <nz-option nzValue="kilometersTraveled" nzLabel="Kilometers traveled"><i nz-icon nzType="car" nzTheme="twotone"></i></nz-option>
+    </nz-select>
 
     <div class="row">
       <div class="col col-lg-4 col-md-6 col-sm-8" style="padding-top: 15px;" *ngFor="let result of searchResults">
