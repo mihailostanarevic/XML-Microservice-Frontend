@@ -19,7 +19,7 @@ export class GearshiftTypeService {
 
   public createGearshiftType(body): Observable<any> {
     this.getToken();
-    return this.http.post(this.baseUrl + 'ad/gearshift-types', body, {
+    return this.http.post(this.baseUrl + 'ads/gearshift-types', body, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })
@@ -28,7 +28,7 @@ export class GearshiftTypeService {
 
   public updateGearshiftType(body, id): Observable<any> {
     this.getToken();
-    return this.http.put(this.baseUrl + `ad/gearshift-types/${id}/gearshift-type`, body, {
+    return this.http.put(this.baseUrl + `ads/gearshift-types/${id}/gearshift-type`, body, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })
@@ -37,7 +37,7 @@ export class GearshiftTypeService {
 
   public getGearshiftType(id): Observable<any> {
     this.getToken();
-    return this.http.get(this.baseUrl + `ad/gearshift-types/${id}/gearshift-type`, {
+    return this.http.get(this.baseUrl + `ads/gearshift-types/${id}/gearshift-type`, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })
@@ -46,7 +46,7 @@ export class GearshiftTypeService {
 
   public getAllGearshiftTypes(): Observable<any> {
     this.getToken();
-    return this.http.get(this.baseUrl + `ad/gearshift-types`, {
+    return this.http.get(this.baseUrl + `ads/gearshift-types`, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })
@@ -55,7 +55,7 @@ export class GearshiftTypeService {
 
   public deleteGearshiftType(id): Observable<any> {
     this.getToken();
-    return this.http.delete(this.baseUrl + `ad/gearshift-types/${id}/gearshift-type`, {
+    return this.http.delete(this.baseUrl + `ads/gearshift-types/${id}/gearshift-type`, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })
@@ -64,7 +64,7 @@ export class GearshiftTypeService {
 
   public getGearshiftTypessWithFilter(filter = {}): Observable<any> {
     this.getToken();
-    return this.http.get(`${this.baseUrl}ad/gearshift-types/with-filter${this.buildFilterRequest(filter)}`, {
+    return this.http.get(`${this.baseUrl}ads/gearshift-types/with-filter${this.buildFilterRequest(filter)}`, {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })

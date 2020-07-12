@@ -89,9 +89,9 @@ export class LightSearchComponent implements OnInit {
       this.searchResults = JSON.parse(localStorage.getItem("advanced-search"));
       console.log(this.searchResults);
       if(this.searchResults.length > 0){
-        this.message.info('Your search came back with ' + this.searchResults.length + ' results');
+        //this.message.info('Your search came back with ' + this.searchResults.length + ' results');
       }else {
-        this.message.info('Unfortunately our search found 0 results for your search, try again with new parameters');
+        //this.message.info('Unfortunately our search found 0 results for your search, try again with new parameters');
       }
       this.showResults = true;
     }else {
@@ -120,9 +120,9 @@ export class LightSearchComponent implements OnInit {
             let date = new Date(result.ad.creationDate.split("-")[0],parseInt(result.ad.creationDate.split("-")[1])-1,result.ad.creationDate.split("-")[2]);
             result.ad["formattedDate"]= date.toString().substring(0,15);
           }
-          this.message.info('Your search came back with ' + data.length + ' results');
+          //this.message.info('Your search came back with ' + data.length + ' results');
         }else {
-          this.message.info('Unfortunately our search found 0 results for your search, try again with new parameters');
+          //this.message.info('Unfortunately our search found 0 results for your search, try again with new parameters');
         }
       })
     }
