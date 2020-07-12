@@ -16,7 +16,7 @@ import { RequestService } from 'src/app/services/request.service';
 export class ReservationsComponent implements OnInit {
   usersReservedRequests: any[] = [];
   userID: string;
-  page: string = '"reservations"';
+  page: string = "reservations";
 
   constructor(private requestService: RequestService, private userService: UserService, private store: Store<fromApp.AppState>, private messageService: MessageService) { }
   messages: any[] = [];

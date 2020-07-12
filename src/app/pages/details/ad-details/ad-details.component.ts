@@ -58,8 +58,7 @@ export class AdDetailsComponent implements OnInit {
     private adService: CreateAdService) { }
 
   ngOnInit(): void {
-    this.previousPage = JSON.parse(localStorage.getItem("page-leading-to-details"));
-    console.log(this.previousPage);
+    this.previousPage = localStorage.getItem("page-leading-to-details");
     this.currentAd = JSON.parse(localStorage.getItem("ad-detail"));
     for(let photo of this.currentAd.ad.photos){
       this.base64Data = photo["picByte"];
@@ -88,8 +87,6 @@ export class AdDetailsComponent implements OnInit {
         }
       })
     })
-
-    
   }
 
   open(): void {
